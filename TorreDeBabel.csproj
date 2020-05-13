@@ -49,6 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="baseLangueDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>baseLangueDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,7 +70,19 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="baseLangueDataSet.xsc">
+      <DependentUpon>baseLangueDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="baseLangueDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>baseLangueDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="baseLangueDataSet.xss">
+      <DependentUpon>baseLangueDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -81,6 +98,108 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="babel.ico" />
+    <Content Include="baseLangue.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\babel.ico" />
+    <None Include="Resources\voleur.png" />
+    <None Include="Resources\voir.jpg" />
+    <None Include="Resources\vivir.jpg" />
+    <None Include="Resources\viande.jpg" />
+    <None Include="Resources\venir.png" />
+    <None Include="Resources\vagues.jpg" />
+    <None Include="Resources\travailler.jpg" />
+    <None Include="Resources\transat.jpg" />
+    <None Include="Resources\tram.jpg" />
+    <None Include="Resources\tortillas.jpg" />
+    <None Include="Resources\table.jpg" />
+    <None Include="Resources\sucre.jpg" />
+    <None Include="Resources\sel.jpg" />
+    <None Include="Resources\rue.jpg" />
+    <None Include="Resources\reve.jpg" />
+    <None Include="Resources\profesor.jpg" />
+    <None Include="Resources\prof.jpg" />
+    <None Include="Resources\pouvoir.jpg" />
+    <None Include="Resources\polo.jpg" />
+    <None Include="Resources\police.jpg" />
+    <None Include="Resources\poivre.jpg" />
+    <None Include="Resources\poisson.jpg" />
+    <None Include="Resources\plaitil.jpg" />
+    <None Include="Resources\plage.jpg" />
+    <None Include="Resources\pharmacie.jpg" />
+    <None Include="Resources\permisConduire.jpg" />
+    <None Include="Resources\peinado.jpg" />
+    <None Include="Resources\patate.jpg" />
+    <None Include="Resources\parasol.jpg" />
+    <None Include="Resources\pain.jpg" />
+    <None Include="Resources\ordinateur.jpg" />
+    <None Include="Resources\oignon.jpg" />
+    <None Include="Resources\oficina.jpg" />
+    <None Include="Resources\oeuf.jpg" />
+    <None Include="Resources\octaviopaz.jpg" />
+    <None Include="Resources\nourriture.jpg" />
+    <None Include="Resources\nez.jpg" />
+    <None Include="Resources\mixer.jpg" />
+    <None Include="Resources\metro.jpg" />
+    <None Include="Resources\mer.jpg" />
+    <None Include="Resources\medecin.jpg" />
+    <None Include="Resources\manger.jpg" />
+    <None Include="Resources\maison.jpg" />
+    <None Include="Resources\mais.jpg" />
+    <None Include="Resources\llamar.jpg" />
+    <None Include="Resources\lit.jpg" />
+    <None Include="Resources\lait.jpg" />
+    <None Include="Resources\la-casa-de-papel1.png" />
+    <None Include="Resources\jambon.jpg" />
+    <None Include="Resources\jambe.jpg" />
+    <None Include="Resources\hello.png" />
+    <None Include="Resources\hand.jpg" />
+    <None Include="Resources\guey.jpg" />
+    <None Include="Resources\gorge.jpg" />
+    <None Include="Resources\genial.jpg" />
+    <None Include="Resources\gare.jpg" />
+    <None Include="Resources\garciabernal.jpg" />
+    <None Include="Resources\fromage.jpg" />
+    <None Include="Resources\frijoles.jpg" />
+    <None Include="Resources\fridakahlo.jpg" />
+    <None Include="Resources\fiebre.jpg" />
+    <None Include="Resources\fauteuil.jpg" />
+    <None Include="Resources\farine.jpg" />
+    <None Include="Resources\etage.jpg" />
+    <None Include="Resources\entendre.jpg" />
+    <None Include="Resources\dos.jpg" />
+    <None Include="Resources\dire.jpg" />
+    <None Include="Resources\dentiste.jpg" />
+    <None Include="Resources\danser.jpg" />
+    <None Include="Resources\cuisiner.jpg" />
+    <None Include="Resources\cuadra.jpg" />
+    <None Include="Resources\consultation.jpg" />
+    <None Include="Resources\comprimidos.jpg" />
+    <None Include="Resources\chile.jpg" />
+    <None Include="Resources\cheveux.jpg" />
+    <None Include="Resources\chaise.jpg" />
+    <None Include="Resources\censurado.jpg" />
+    <None Include="Resources\casadepapel.jpg" />
+    <None Include="Resources\carteIdentite.jpg" />
+    <None Include="Resources\cartecredit.jpg" />
+    <None Include="Resources\bras.jpg" />
+    <None Include="Resources\bouee.jpg" />
+    <None Include="Resources\bonhomme_Checked.jpg" />
+    <None Include="Resources\boisson.png" />
+    <None Include="Resources\boire.jpg" />
+    <None Include="Resources\bocho.jpg" />
+    <None Include="Resources\billets.jpg" />
+    <None Include="Resources\bikini.jpg" />
+    <None Include="Resources\biere.jpg" />
+    <None Include="Resources\beurre.jpg" />
+    <None Include="Resources\autobus.jpg" />
+    <None Include="Resources\auscultation.jpg" />
+    <None Include="Resources\atraco.jpg" />
+    <None Include="Resources\aqui.jpg" />
+    <None Include="Resources\appartement.jpg" />
+    <None Include="Resources\ajouter.jpg" />
+    <None Include="Resources\aider.jpg" />
+    <None Include="Resources\aeroport.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
