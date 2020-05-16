@@ -32,5 +32,14 @@ namespace TorreDeBabel.Properties {
                 return ((string)(this["baseLangueConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI, 14.25pt")]
+        public global::System.Drawing.Font DisplayFont {
+            get {
+                return ((global::System.Drawing.Font)(this["DisplayFont"]));
+            }
+        }
     }
 }
