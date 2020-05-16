@@ -1,5 +1,5 @@
 ﻿namespace TorreDeBabel {
-partial class Form1 {
+partial class frmDemarrage {
 	/// <summary>
 	/// Required designer variable.
 	/// </summary>
@@ -25,10 +25,17 @@ partial class Form1 {
 	/// </summary>
 	private void InitializeComponent()
 	{
-		this.components = new System.ComponentModel.Container();
-		this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-		this.ClientSize = new System.Drawing.Size(800, 450);
-		this.Text = "Form1";
+			this.SuspendLayout();
+			// 
+			// frmDemarrage
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Name = "frmDemarrage";
+			this.Text = "Form1";
+			this.ResumeLayout(false);
+
 	}
 
 	#endregion
