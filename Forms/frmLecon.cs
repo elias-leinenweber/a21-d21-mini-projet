@@ -1,6 +1,8 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
+using static TorreDeBabel.baseLangueDataSet;
+
 namespace TorreDeBabel {
 public partial class frmLecon : Form {
 #region Propriétés
@@ -11,11 +13,12 @@ ProgressBar		pgbAvancement;
 Button			btnSkip, btnCheck;
 #endregion
 #region Constructeurs
-public frmLecon()
+public frmLecon(LeconsRow lecon)
 {
 	InitializeComponent();
 
 	Name		= "frmLecon";
+	Text		= lecon.titreLecon;
 	BackColor	= Color.White;
 	ForeColor	= Color.FromArgb(60, 60, 60);
 
