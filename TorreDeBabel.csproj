@@ -64,7 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="baseLangueDataSet.Designer.cs">
+    <Compile Include="Data\baseLangueDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>baseLangueDataSet.xsd</DependentUpon>
@@ -104,15 +104,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="baseLangueDataSet.xsc">
+    <None Include="Data\baseLangueDataSet.xsc">
       <DependentUpon>baseLangueDataSet.xsd</DependentUpon>
     </None>
-    <None Include="baseLangueDataSet.xsd">
+    <None Include="Data\baseLangueDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>baseLangueDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="baseLangueDataSet.xss">
+    <None Include="Data\baseLangueDataSet.xss">
       <DependentUpon>baseLangueDataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
@@ -130,7 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="babel.ico" />
-    <Content Include="baseLangue.mdb">
+    <Content Include="Data\baseLangue.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\TowerOfBabel.jpg" />
@@ -245,8 +245,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
