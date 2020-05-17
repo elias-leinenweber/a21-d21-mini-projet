@@ -16,7 +16,8 @@ frmDemarrage()
 
 	Name = "frmDemarrage";
 	Text = Application.ProductName;
-	BackColor = Color.LightYellow;
+	BackgroundImage = Properties.Resources.TowerOfBabel;
+	BackgroundImageLayout = ImageLayout.Stretch;
 	Font = Properties.Settings.Default.DisplayFont;
 
 	tlpMain = new TableLayoutPanel() {

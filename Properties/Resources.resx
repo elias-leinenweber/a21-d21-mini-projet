@@ -142,9 +142,6 @@
   <data name="autobus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\autobus.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="babel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\babel.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="beurre" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\beurre.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -387,6 +384,9 @@
   </data>
   <data name="tortillas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tortillas.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TowerOfBabel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TowerOfBabel.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tram" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tram.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

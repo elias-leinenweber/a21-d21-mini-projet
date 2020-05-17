@@ -10,9 +10,12 @@ static class TorreDeBabel {
 static void
 Main()
 {
-	Application.SetCompatibleTextRenderingDefault(false);
-	//Application.Run(new frmDemarrage());
-	Application.Run(new frmLecon());
+	try {
+		Application.Run(new frmDemarrage());
+		//Application.Run(new frmLecon());
+	} catch (Exception e) {
+		MessageBox.Show(e.StackTrace);
+	}
 }
 }
 }

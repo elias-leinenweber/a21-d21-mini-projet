@@ -141,16 +141,6 @@ namespace TorreDeBabel.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon babel {
-            get {
-                object obj = ResourceManager.GetObject("babel", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap beurre {
@@ -956,6 +946,16 @@ namespace TorreDeBabel.Properties {
         internal static System.Drawing.Bitmap tortillas {
             get {
                 object obj = ResourceManager.GetObject("tortillas", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TowerOfBabel {
+            get {
+                object obj = ResourceManager.GetObject("TowerOfBabel", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

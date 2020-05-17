@@ -135,7 +135,7 @@
     <Content Include="baseLangue.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\babel.ico" />
+    <None Include="Resources\TowerOfBabel.jpg" />
     <None Include="Resources\voleur.png" />
     <None Include="Resources\voir.jpg" />
     <None Include="Resources\vivir.jpg" />
