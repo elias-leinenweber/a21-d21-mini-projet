@@ -10,6 +10,7 @@ TableLayoutPanel	tlpMain;
 TableLayoutPanel	tlpHeader;
 Button			btnRetour;
 ProgressBar		pgbAvancement;
+Exercice		exoMain;
 Button			btnSkip, btnCheck;
 #endregion
 #region Constructeurs
@@ -47,6 +48,8 @@ public frmLecon(LeconsRow lecon)
 	tlpHeader.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 	tlpHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 18F));
 
+	tlpMain.Controls.Add(tlpHeader, 0, 0);
+	tlpMain.Controls.Add(exoMain, 0, 1);
 	Controls.Add(tlpMain);
 }
 #endregion

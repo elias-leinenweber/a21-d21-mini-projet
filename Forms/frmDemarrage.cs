@@ -7,7 +7,7 @@ using TorreDeBabel.baseLangueDataSetTableAdapters;
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
-	public partial class frmDemarrage : Form {
+public partial class frmDemarrage : Form {
 #region Propriétés
 TableLayoutPanel	tlpMain;
 Button			btnInscrire;
