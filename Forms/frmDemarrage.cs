@@ -20,8 +20,8 @@ frmDemarrage()
 {
 	InitializeComponent();
 
-	Name = "frmDemarrage";
-	Text = Application.ProductName;
+	Name			= "frmDemarrage";
+	Text			= Application.ProductName;
 	BackgroundImage		= Properties.Resources.TowerOfBabel;
 	BackgroundImageLayout	= ImageLayout.Stretch;
 	Font			= Properties.Settings.Default.DisplayFont;
@@ -50,6 +50,7 @@ frmDemarrage()
 		FlatStyle	= FlatStyle.Flat
 	};
 	btnInscrire.FlatAppearance.BorderSize = 0;
+	btnInscrire.Click += new EventHandler(Register);
 
 	btnLogin = new Button() {
 		Name	= "btnLogin",
@@ -77,6 +78,12 @@ frmDemarrage()
 #endregion
 #region Méthodes
 private void
+Register(object sender, EventArgs e)
+{
+	cboUsers.Visible = false;
+}
+
+private void
 Login(object sender, EventArgs e)
 {
 	cboUsers.Visible = true;
@@ -95,6 +102,17 @@ FillCboUsers()
 	cboUsers.DataSource = dt;
 	cboUsers.DisplayMember = "ncUtil";
 	cboUsers.ValueMember = "codeUtil";
+}
+
+private void
+OpenDashboard(UtilisateursRow selectedUser)
+{
+	frmTableauBord frmTableauBord;
+
+	frmTableauBord = new frmTableauBord(selectedUser);
+	Hide();
+	frmTableauBord.ShowDialog();
+	Show();
 }
 #endregion
 }

@@ -15,10 +15,10 @@ Main()
 		Application.Run(new frmDemarrage());
 		//Application.Run(new frmLecon());
 	} catch (Exception e) {
+		MessageBox.Show(e.Message);
 #if DEBUG
 		MessageBox.Show(e.StackTrace);
 #endif
-		MessageBox.Show(e.Message);
 	}
 }
 }

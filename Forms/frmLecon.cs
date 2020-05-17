@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 using static TorreDeBabel.baseLangueDataSet;
@@ -6,6 +7,7 @@ using static TorreDeBabel.baseLangueDataSet;
 namespace TorreDeBabel {
 public partial class frmLecon : Form {
 #region Propriétés
+DataTableReader		Exercices;
 TableLayoutPanel	tlpMain;
 TableLayoutPanel	tlpHeader;
 Button			btnRetour;
@@ -14,8 +16,12 @@ Exercice		exoMain;
 Button			btnSkip, btnCheck;
 #endregion
 #region Constructeurs
-public frmLecon(LeconsRow lecon)
+public
+frmLecon(LeconsRow lecon)
 {
+	ExercicesDataTable dt = new ExercicesDataTable();
+	Exercices = dt.CreateDataReader();
+
 	InitializeComponent();
 
 	Name		= "frmLecon";
@@ -54,6 +60,12 @@ public frmLecon(LeconsRow lecon)
 }
 #endregion
 #region Méthodes
+private void
+NextExercise()
+{
+	Exercices.Read();
+	//exoMain = Exercice.GetExercice(Exercices.GetValues)
+}
 #endregion Méthodes
 }
 }

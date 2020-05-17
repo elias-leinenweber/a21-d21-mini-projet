@@ -69,6 +69,18 @@
     <Compile Include="Controls\Exercice.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\Exercice.Designer.cs">
+      <DependentUpon>Exercice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\exoVocab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\exoPhraseDesordre.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\exoPhraseATrous.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\baseLangueDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,7 +107,6 @@
     <Compile Include="TorreDeBabel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Controls.cs" />
-    <Compile Include="Utils\Donnees.cs" />
     <EmbeddedResource Include="Forms\frmDemarrage.resx">
       <DependentUpon>frmDemarrage.cs</DependentUpon>
     </EmbeddedResource>
