@@ -4,7 +4,9 @@ using System.Windows.Forms;
 namespace TorreDeBabel {
 public partial class frmDemarrage : Form {
 #region Propriétés
-Button btnInscrire, btnLogin;
+TableLayoutPanel	tlpMain;
+Button			btnInscrire;
+Button			btnLogin;
 #endregion
 #region Constructeurs
 public
@@ -17,11 +19,24 @@ frmDemarrage()
 	BackColor = Color.LightYellow;
 	Font = Properties.Settings.Default.DisplayFont;
 
+	tlpMain = new TableLayoutPanel() {
+		Name		= "tlpMain",
+		ColumnCount	= 1,
+		RowCount	= 2,
+		Anchor		= (AnchorStyles.Top | AnchorStyles.Bottom),
+		Height		= 110,
+		Width		= 501,
+		GrowStyle	= TableLayoutPanelGrowStyle.FixedSize,
+		CellBorderStyle	= TableLayoutPanelCellBorderStyle.Inset	// debug only
+	};
+	tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+	tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+	tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 62F));
+
 	btnInscrire = new Button() {
 		Name	= "btnInscrire",
 		Size	= new Size(320, 48),
 		Text	= "S'inscrire",
-		Location= new Point(300, 200),
 		BackColor	= Color.FromArgb(88, 167, 0),
 		ForeColor	= Color.White
 	};
@@ -29,12 +44,12 @@ frmDemarrage()
 	btnLogin = new Button() {
 		Name	= "btnLogin",
 		Size	= new Size(320, 48),
-		Text	= "Connexion",
-		Location= new Point(300, 300)
+		Text	= "Connexion"
 	};
 
-	Controls.Add(btnInscrire);
-	Controls.Add(btnLogin);
+	tlpMain.Controls.Add(btnInscrire, 0, 0);
+	tlpMain.Controls.Add(btnLogin, 0, 1);
+	Controls.Add(tlpMain);
 }
 #endregion
 #region Méthodes

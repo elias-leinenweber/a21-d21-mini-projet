@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 
 namespace TorreDeBabel {
-static class Program {
+static class TorreDeBabel {
 /// <summary>
 /// The main entry point for the application.
 /// </summary>
@@ -11,7 +11,8 @@ static void
 Main()
 {
 	Application.SetCompatibleTextRenderingDefault(false);
-	Application.Run(new frmDemarrage());
+	//Application.Run(new frmDemarrage());
+	Application.Run(new frmLecon());
 }
 }
 }

@@ -1,11 +1,11 @@
 ﻿namespace TorreDeBabel {
-public class Utilisateur {
+public partial class Utilisateur {
 #region Propriétés
-string Nom, Prenom;
+int Code;
+string Nom, Prenom, Mail;
 bool EstAdmin;
 #endregion
 #region Constructeurs
-public
 Utilisateur(string Nom, string Prenom)
 {
 	this.Nom = Nom;
