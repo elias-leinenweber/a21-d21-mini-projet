@@ -6,14 +6,14 @@ namespace TorreDeBabel {
 abstract partial class Exercice : TableLayoutPanel {
 protected RowStyle	rowEnonce;
 protected Label		lblEnonce;
-RowStyle	rowPhrase;
-Label		lblPhrase;
-RowStyle	rowExercice;
+protected RowStyle	rowPhrase;
+protected Label		lblPhrase;
+protected RowStyle	rowExercice;
 
 protected
 Exercice()
 {
-	InitializeComponent();
+	SuspendLayout();
 
 	ColumnCount	= 1;
 	RowCount	= 3;
@@ -28,6 +28,8 @@ Exercice()
 
 	rowExercice = new RowStyle(SizeType.AutoSize);
 	RowStyles.Add(rowExercice);
+
+	ResumeLayout(false);
 }
 
 public static Exercice

@@ -12,11 +12,14 @@ TableLayoutPanel	tlpMain;
 public
 frmTableauBord(UtilisateursRow user)
 {
-	InitializeComponent();
+	SuspendLayout();
+	components = new System.ComponentModel.Container();
 
 	tlpMain = new TableLayoutPanel() {
 		ColumnCount = 1
 	};
+
+	ResumeLayout();
 }
 #endregion
 #region Méthodes

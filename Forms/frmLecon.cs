@@ -22,7 +22,7 @@ frmLecon(LeconsRow lecon)
 	ExercicesDataTable dt = new ExercicesDataTable();
 	Exercices = dt.CreateDataReader();
 
-	InitializeComponent();
+	SuspendLayout();
 
 	Name		= "frmLecon";
 	Text		= lecon.titreLecon;
@@ -57,6 +57,8 @@ frmLecon(LeconsRow lecon)
 	tlpMain.Controls.Add(tlpHeader, 0, 0);
 	tlpMain.Controls.Add(exoMain, 0, 1);
 	Controls.Add(tlpMain);
+
+	ResumeLayout(false);
 }
 #endregion
 #region Méthodes
