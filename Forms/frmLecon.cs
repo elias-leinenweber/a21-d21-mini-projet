@@ -5,27 +5,38 @@ using System.Windows.Forms;
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
-public partial class frmLecon : Form {
-#region Propriétés
-DataTableReader		Exercices;
-TableLayoutPanel	tlpMain;
-TableLayoutPanel	tlpHeader;
-Button			btnRetour;
-ProgressBar		pgbAvancement;
-Exercice		exoMain;
-Button			btnSkip, btnCheck;
-#endregion
-#region Constructeurs
-public
-frmLecon(LeconsRow lecon)
-{
-	ExercicesDataTable dt = new ExercicesDataTable();
-	Exercices = dt.CreateDataReader();
+class frmLecon : Form {
+#region Designer
+private System.ComponentModel.IContainer components = null;
+private DataTableReader		Exercices;
+private TableLayoutPanel	tlpMain;
+private TableLayoutPanel	tlpHeader;
+private Button			btnRetour;
+private ProgressBar		pgbAvancement;
+private Exercice		exoMain;
+private Button			btnSkip, btnCheck;
 
+protected override void
+Dispose(bool disposing)
+{
+	if (disposing && components != null) {
+		components.Dispose();
+	}
+	base.Dispose(disposing);
+}
+
+private void
+InitializeComponent()
+{
+	components = new System.ComponentModel.Container();
 	SuspendLayout();
 
+	AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+	ClientSize = new System.Drawing.Size(800, 450);
+	Text = "frmLecon";
+
 	Name		= "frmLecon";
-	Text		= lecon.titreLecon;
+	
 	BackColor	= Color.White;
 	ForeColor	= Color.FromArgb(60, 60, 60);
 
@@ -59,6 +70,16 @@ frmLecon(LeconsRow lecon)
 	Controls.Add(tlpMain);
 
 	ResumeLayout(false);
+}
+#endregion
+#region Constructeurs
+public
+frmLecon(LeconsRow lecon)
+{
+	ExercicesDataTable dt = new ExercicesDataTable();
+	Exercices = dt.CreateDataReader();
+	InitializeComponent();
+	Text		= lecon.titreLecon;
 }
 #endregion
 #region Méthodes

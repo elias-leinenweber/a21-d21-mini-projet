@@ -2,19 +2,23 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-using TorreDeBabel.Forms;
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
-public partial class frmDemarrage : Form {
-#region Champs
-private TableLayoutPanel	tlpMain;
-private Button			btnInscrire;
-private Button			btnLogin;
-#endregion
-#region Constructeurs
-public
-frmDemarrage()
+public class frmDemarrage : Form {
+#region Designer
+private System.ComponentModel.IContainer components = null;
+
+protected override void
+Dispose(bool disposing)
+{
+	if (disposing && components != null)
+		components.Dispose();
+	base.Dispose(disposing);
+}
+
+private void
+InitializeComponent()
 {
 	SuspendLayout();
 	components = new System.ComponentModel.Container();
@@ -39,7 +43,7 @@ frmDemarrage()
 	tlpMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 	tlpMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
-	btnInscrire = new Button() {
+	btnRegister = new Button() {
 		Name	= "btnInscrire",
 		Size	= new Size(320, 48),
 		Text	= "S'inscrire",
@@ -48,8 +52,8 @@ frmDemarrage()
 		Anchor	= AnchorStyles.None,
 		FlatStyle	= FlatStyle.Flat
 	};
-	btnInscrire.FlatAppearance.BorderSize = 0;
-	btnInscrire.Click += new EventHandler(Register);
+	btnRegister.FlatAppearance.BorderSize = 0;
+	btnRegister.Click += new EventHandler(Register);
 
 	btnLogin = new Button() {
 		Name	= "btnLogin",
@@ -61,7 +65,7 @@ frmDemarrage()
 	btnLogin.FlatAppearance.BorderSize = 0;
 	btnLogin.Click += new EventHandler(Login);
 
-	tlpMain.Controls.Add(btnInscrire, 0, 0);
+	tlpMain.Controls.Add(btnRegister, 0, 0);
 	tlpMain.Controls.Add(btnLogin, 0, 1);
 
 	Controls.Add(tlpMain);
@@ -69,34 +73,42 @@ frmDemarrage()
 	ResumeLayout(false);
 }
 #endregion
+#region Champs
+private TableLayoutPanel	tlpMain;
+private Button			btnRegister;
+private Button			btnLogin;
+#endregion
+#region Constructeurs
+public
+frmDemarrage()
+{
+	InitializeComponent();
+}
+#endregion
 #region Méthodes
 private void
 Register(object sender, EventArgs e)
 {
-	frmRegister frmRegister = new frmRegister();
-
-	/*if (frmRegister.ShowDialog() == DialogResult.OK)
-		OpenDashboard(frmRegister.SelectedUser);*/
+	using (frmRegister modal = new frmRegister())
+		if (modal.ShowDialog() == DialogResult.OK)
+			OpenDashboard(modal.CreatedUser);
 		
 }
 
 private void
 Login(object sender, EventArgs e)
 {
-	frmLogin frmLogin = new frmLogin();
-
-	if (frmLogin.ShowDialog() == DialogResult.OK)
-		OpenDashboard(frmLogin.SelectedUser);
+	using (frmLogin modal = new frmLogin())
+		if (modal.ShowDialog() == DialogResult.OK)
+			OpenDashboard(modal.SelectedUser);
 }
 
 private void
 OpenDashboard(UtilisateursRow selectedUser)
 {
-	frmTableauBord frmTableauBord;
-
-	frmTableauBord = new frmTableauBord(selectedUser);
 	Hide();
-	frmTableauBord.ShowDialog();
+	using (frmTableauBord modal = new frmTableauBord(selectedUser))
+		modal.ShowDialog();
 	Show();
 }
 #endregion

@@ -6,22 +6,25 @@ using TorreDeBabel.baseLangueDataSetTableAdapters;
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
-partial class frmLogin : Form {
-#region Propriétés
-public UtilisateursRow SelectedUser {
-	get => (UtilisateursRow)tblUsers.Select("codeUtil = " + cboUsers.SelectedValue)[0];
+class frmLogin : Form {
+#region Designer
+private System.ComponentModel.IContainer components = null;
+
+protected override void
+Dispose(bool disposing)
+{
+	if (disposing && components != null)
+		components.Dispose();
+	base.Dispose(disposing);
 }
-#endregion
-#region Champs
-private UtilisateursDataTable tblUsers;
-private ComboBox cboUsers;
-private Button btnOK;
-#endregion
-#region Constructeurs
-public
-frmLogin()
+
+private void
+InitializeComponent()
 {
 	components = new System.ComponentModel.Container();
+	AutoScaleMode = AutoScaleMode.Font;
+	ClientSize = new Size(800, 450);
+	Text = "frmLogin";
 
 	cboUsers = new ComboBox() {
 		Name		= "cboUsers",
@@ -39,12 +42,29 @@ frmLogin()
 
 	Controls.Add(cboUsers);
 	Controls.Add(btnOK);
-	Load += new EventHandler(FillCboUsers);
+}
+#endregion
+#region Propriétés
+public UtilisateursRow SelectedUser {
+	get => (UtilisateursRow)tblUsers.Select("codeUtil = " + cboUsers.SelectedValue)[0];
+}
+#endregion
+#region Champs
+private UtilisateursDataTable tblUsers;
+private ComboBox cboUsers;
+private Button btnOK;
+#endregion
+#region Constructeurs
+public
+frmLogin()
+{
+	InitializeComponent();
+	FillCboUsers();
 }
 #endregion
 #region Méthodes
 private void
-FillCboUsers(object sender, EventArgs e)
+FillCboUsers()
 {
 	UtilisateursTableAdapter da;
 
