@@ -8,6 +8,8 @@ namespace TorreDeBabel {
 public class frmDemarrage : Form {
 #region Designer
 private System.ComponentModel.IContainer components = null;
+private Button btnRegister;
+private Button btnLogin;
 
 protected override void
 Dispose(bool disposing)
@@ -30,53 +32,31 @@ InitializeComponent()
 	Font			= Properties.Settings.Default.DisplayFont;
 	WindowState		= FormWindowState.Maximized;
 
-	tlpMain = new TableLayoutPanel() {
-		Name		= "tlpMain",
-		ColumnCount	= 1,
-		RowCount	= 2,
-		//Size		= new Size(501, 110),
-		Dock		= DockStyle.Fill,
-		GrowStyle	= TableLayoutPanelGrowStyle.FixedSize,
-		BackColor	= Color.Transparent
-	};
-	tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-	tlpMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-	tlpMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-
 	btnRegister = new Button() {
-		Name	= "btnInscrire",
-		Size	= new Size(320, 48),
-		Text	= "S'inscrire",
+		Name		= "btnInscrire",
+		Size		= new Size(320, 48),
+		Location	= new Point(640, 320),
+		Text		= "S'inscrire",
 		BackColor	= Color.FromArgb(88, 167, 0),
-		ForeColor	= Color.White,
-		Anchor	= AnchorStyles.None,
-		FlatStyle	= FlatStyle.Flat
+		ForeColor	= Color.White
 	};
-	btnRegister.FlatAppearance.BorderSize = 0;
 	btnRegister.Click += new EventHandler(Register);
 
 	btnLogin = new Button() {
-		Name	= "btnLogin",
-		Size	= new Size(320, 48),
-		Text	= "Connexion",
-		Anchor	= AnchorStyles.None,
-		FlatStyle	= FlatStyle.Flat
+		Name		= "btnLogin",
+		Size		= new Size(320, 48),
+		Location	= new Point(640, 480),
+		Text		= "Connexion",
+		BackColor	= Color.Transparent,
+		ForeColor	= Color.White
 	};
-	btnLogin.FlatAppearance.BorderSize = 0;
 	btnLogin.Click += new EventHandler(Login);
 
-	tlpMain.Controls.Add(btnRegister, 0, 0);
-	tlpMain.Controls.Add(btnLogin, 0, 1);
-
-	Controls.Add(tlpMain);
+	Controls.Add(btnRegister);
+	Controls.Add(btnLogin);
 
 	ResumeLayout(false);
 }
-#endregion
-#region Champs
-private TableLayoutPanel	tlpMain;
-private Button			btnRegister;
-private Button			btnLogin;
 #endregion
 #region Constructeurs
 public
@@ -107,7 +87,7 @@ private void
 OpenDashboard(UtilisateursRow selectedUser)
 {
 	Hide();
-	using (frmTableauBord modal = new frmTableauBord(selectedUser))
+	using (frmDashboard modal = new frmDashboard(selectedUser))
 		modal.ShowDialog();
 	Show();
 }

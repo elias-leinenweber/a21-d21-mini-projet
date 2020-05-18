@@ -3,15 +3,25 @@
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
-abstract partial class Exercice : TableLayoutPanel {
+abstract class Exercice : TableLayoutPanel {
+#region Designer
+private System.ComponentModel.IContainer components = null;
 protected RowStyle	rowEnonce;
 protected Label		lblEnonce;
 protected RowStyle	rowPhrase;
 protected Label		lblPhrase;
 protected RowStyle	rowExercice;
 
-protected
-Exercice()
+protected override void
+Dispose(bool disposing)
+{
+	if (disposing && components != null)
+		components.Dispose();
+	base.Dispose(disposing);
+}
+
+private void
+InitializeComponent()
 {
 	SuspendLayout();
 
@@ -30,6 +40,12 @@ Exercice()
 	RowStyles.Add(rowExercice);
 
 	ResumeLayout(false);
+}
+#endregion
+protected
+Exercice()
+{
+	InitializeComponent();
 }
 
 public static Exercice
