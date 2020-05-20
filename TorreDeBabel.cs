@@ -12,9 +12,9 @@ Main()
 {
 	try {
 		Application.Run(new frmDemarrage());
-		//Application.Run(new frmLecon());
 	} catch (Exception e) {
-		MessageBox.Show(e.Message);
+		MessageBox.Show(e.Message, e.GetType().Name,
+		    MessageBoxButtons.OK, MessageBoxIcon.Error);
 #if DEBUG
 		MessageBox.Show(e.StackTrace);
 #endif

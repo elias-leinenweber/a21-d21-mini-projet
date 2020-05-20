@@ -66,7 +66,7 @@ InitializeComponent()
 	tlpHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 18F));
 
 	tlpMain.Controls.Add(tlpHeader, 0, 0);
-	tlpMain.Controls.Add(exoMain, 0, 1);
+	//tlpMain.Controls.Add(exoMain, 0, 1);
 	Controls.Add(tlpMain);
 
 	ResumeLayout(false);
@@ -79,7 +79,7 @@ frmLecon(LeconsRow lecon)
 	ExercicesDataTable dt = new ExercicesDataTable();
 	Exercices = dt.CreateDataReader();
 	InitializeComponent();
-	Text		= lecon.titreLecon;
+	Text = lecon.titreLecon;
 }
 #endregion
 #region Méthodes
