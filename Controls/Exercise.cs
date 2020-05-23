@@ -3,7 +3,7 @@
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
-abstract class Exercice : TableLayoutPanel {
+abstract class Exercise : TableLayoutPanel {
 #region Designer
 private System.ComponentModel.IContainer components = null;
 protected RowStyle	rowEnonce;
@@ -25,6 +25,8 @@ InitializeComponent()
 {
 	SuspendLayout();
 
+	Width = 600;
+
 	ColumnCount	= 1;
 	RowCount	= 3;
 
@@ -43,15 +45,15 @@ InitializeComponent()
 }
 #endregion
 protected
-Exercice()
+Exercise()
 {
 	InitializeComponent();
 }
 
-public static Exercice
+public static Exercise
 GetExercice(ExercicesRow data)
 {
-	Exercice res;
+	Exercise res;
 
 	if (data.codePhrase == 0)
 		res = new exoVocab(data);

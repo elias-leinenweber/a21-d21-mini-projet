@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -12,9 +15,9 @@ class frmLecon : Form {
 private System.ComponentModel.IContainer components = null;
 private TableLayoutPanel	tlpMain;
 private TableLayoutPanel	tlpHeader;
-private Button			btnRetour;
-private ProgressBar		pgbAvancement;
-private Exercice		exoMain;
+private Button			btnReturn;
+private ProgressBar		pgb;
+private Exercise		exoMain;
 private Button			btnSkip, btnCheck;
 
 protected override void
@@ -76,8 +79,8 @@ InitializeComponent()
 #endregion
 #region Champs
 private static ExercicesTableAdapter eta = new ExercicesTableAdapter();
-private ExercicesRow[]		Exercices;
-private int CurrentExercise;
+private Queue<ExercicesRow>	Exercises;
+private int			CurrentExercise;
 #endregion
 #region Constructeurs
 public
@@ -85,8 +88,10 @@ frmLecon(LeconsRow lecon)
 {
 	ExercicesDataTable dt = new ExercicesDataTable();
 	eta.Fill(dt);
-	Exercices = (ExercicesRow[])dt
-	    .Select("numLecon = '" + lecon.numLecon + "' AND numCours = '" + lecon.numCours + "'");
+	Exercises = new Queue<ExercicesRow>();
+	// => LINQ
+	foreach (ExercicesRow exo in dt.Select("numLecon = '" + lecon.numLecon + "' AND numCours = '" + lecon.numCours + "'", "numExo asc"))
+		Exercises.Enqueue(exo);
 	InitializeComponent();
 	Text = lecon.titreLecon;
 	CurrentExercise = 0;
@@ -97,9 +102,8 @@ frmLecon(LeconsRow lecon)
 private void
 NextExercise()
 {
-	if (CurrentExercise < Exercices.Length)
-		CurrentExercise++;
-	exoMain = Exercice.GetExercice(Exercices[CurrentExercise]);
+	if (Exercises.Count > 0)
+		exoMain = Exercise.GetExercice(Exercises.Dequeue());
 }
 
 public void
