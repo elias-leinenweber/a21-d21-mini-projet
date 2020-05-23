@@ -1,6 +1,8 @@
-﻿using System.Data;
-using System.Drawing;
+﻿using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+
+using TorreDeBabel.baseLangueDataSetTableAdapters;
 
 using static TorreDeBabel.baseLangueDataSet;
 
@@ -8,7 +10,6 @@ namespace TorreDeBabel {
 class frmLecon : Form {
 #region Designer
 private System.ComponentModel.IContainer components = null;
-private DataTableReader		Exercices;
 private TableLayoutPanel	tlpMain;
 private TableLayoutPanel	tlpHeader;
 private Button			btnRetour;
@@ -39,6 +40,7 @@ InitializeComponent()
 	
 	BackColor	= Color.White;
 	ForeColor	= Color.FromArgb(60, 60, 60);
+	ControlBox	= false;
 
 	tlpMain = new TableLayoutPanel() {
 		Name		= "tlpMain",
@@ -72,22 +74,38 @@ InitializeComponent()
 	ResumeLayout(false);
 }
 #endregion
+#region Champs
+private static ExercicesTableAdapter eta = new ExercicesTableAdapter();
+private ExercicesRow[]		Exercices;
+private int CurrentExercise;
+#endregion
 #region Constructeurs
 public
 frmLecon(LeconsRow lecon)
 {
 	ExercicesDataTable dt = new ExercicesDataTable();
-	Exercices = dt.CreateDataReader();
+	eta.Fill(dt);
+	Exercices = (ExercicesRow[])dt
+	    .Select("numLecon = '" + lecon.numLecon + "' AND numCours = '" + lecon.numCours + "'");
 	InitializeComponent();
 	Text = lecon.titreLecon;
+	CurrentExercise = 0;
+	NextExercise();
 }
 #endregion
 #region Méthodes
 private void
 NextExercise()
 {
-	Exercices.Read();
-	//exoMain = Exercice.GetExercice(Exercices.GetValues)
+	if (CurrentExercise < Exercices.Length)
+		CurrentExercise++;
+	exoMain = Exercice.GetExercice(Exercices[CurrentExercise]);
+}
+
+public void
+SyncProgress()
+{
+	//
 }
 #endregion Méthodes
 }

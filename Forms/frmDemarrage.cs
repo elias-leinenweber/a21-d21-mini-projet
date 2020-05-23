@@ -28,14 +28,16 @@ InitializeComponent()
 	Name			= "frmDemarrage";
 	Text			= Application.ProductName;
 	BackgroundImage		= Properties.Resources.TowerOfBabel;
-	BackgroundImageLayout	= ImageLayout.Stretch;
+	ClientSize		= BackgroundImage.Size;
 	Font			= Properties.Settings.Default.DisplayFont;
-	WindowState		= FormWindowState.Maximized;
+	FormBorderStyle		= FormBorderStyle.FixedSingle;
+	MaximizeBox		= false;
 
 	btnRegister = new Button() {
 		Name		= "btnInscrire",
 		Size		= new Size(320, 48),
-		Location	= new Point(640, 320),
+		Top		= (ClientSize.Height - 110) / 2,
+		Left		= (ClientSize.Width - 320) / 2,
 		Text		= "S'inscrire",
 		BackColor	= Color.FromArgb(88, 167, 0),
 		ForeColor	= Color.White
@@ -45,7 +47,8 @@ InitializeComponent()
 	btnLogin = new Button() {
 		Name		= "btnLogin",
 		Size		= new Size(320, 48),
-		Location	= new Point(640, 480),
+		Top		= btnRegister.Top + btnRegister.Height + 14,
+		Left		= btnRegister.Left,
 		Text		= "Connexion",
 		BackColor	= Color.Transparent,
 		ForeColor	= Color.White
@@ -63,6 +66,7 @@ public
 frmDemarrage()
 {
 	InitializeComponent();
+	CenterToScreen();
 }
 #endregion
 #region Méthodes

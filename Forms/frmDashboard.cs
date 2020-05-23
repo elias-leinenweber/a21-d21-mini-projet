@@ -173,6 +173,7 @@ InitializeComponent()
 			// 
 			// frmDashboard
 			// 
+			this.Font = Properties.Settings.Default.DisplayFont;
 			this.ClientSize = new System.Drawing.Size(784, 411);
 			this.Controls.Add(this.splMain);
 			this.Controls.Add(this.mnuMain);
@@ -192,7 +193,7 @@ InitializeComponent()
 }
 #endregion
 #region Champs
-UtilisateursTableAdapter ta;
+private static UtilisateursTableAdapter uta = new UtilisateursTableAdapter();
 UtilisateursRow user;
 #endregion
 #region Constructeurs
