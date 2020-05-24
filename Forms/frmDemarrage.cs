@@ -32,6 +32,7 @@ InitializeComponent()
 	Font			= Properties.Settings.Default.DisplayFont;
 	FormBorderStyle		= FormBorderStyle.FixedSingle;
 	MaximizeBox		= false;
+	StartPosition		= FormStartPosition.CenterScreen;
 
 	btnRegister = new Button() {
 		Name		= "btnInscrire",
@@ -66,7 +67,6 @@ public
 frmDemarrage()
 {
 	InitializeComponent();
-	CenterToScreen();
 }
 #endregion
 #region Méthodes

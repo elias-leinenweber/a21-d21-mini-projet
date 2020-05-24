@@ -23,8 +23,9 @@ InitializeComponent()
 {
 	components = new System.ComponentModel.Container();
 	AutoScaleMode = AutoScaleMode.Font;
-	ClientSize = new Size(800, 450);
+	ClientSize = new Size(320, 48);
 	Text = "frmLogin";
+	Font = Properties.Settings.Default.DisplayFont;
 
 	cboUsers = new ComboBox() {
 		Name		= "cboUsers",

@@ -18,6 +18,7 @@ private TableLayoutPanel	tlpHeader;
 private Button			btnReturn;
 private ProgressBar		pgb;
 private Exercise		exoMain;
+private Panel			pnlFooter;
 private Button			btnSkip, btnCheck;
 
 protected override void
@@ -36,20 +37,24 @@ InitializeComponent()
 	SuspendLayout();
 
 	AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-	ClientSize = new System.Drawing.Size(800, 450);
+	ClientSize = new System.Drawing.Size(1080, 450);
 	Text = "frmLecon";
 
 	Name		= "frmLecon";
-	
+	Font		= Properties.Settings.Default.DisplayFont;
+	Size		= new Size(1080, 720);
 	BackColor	= Color.White;
 	ForeColor	= Color.FromArgb(60, 60, 60);
 	ControlBox	= false;
+	FormBorderStyle	= FormBorderStyle.None;
+	StartPosition	= FormStartPosition.CenterScreen;
 
 	tlpMain = new TableLayoutPanel() {
 		Name		= "tlpMain",
 		ColumnCount	= 1,
 		RowCount	= 3,
-		Dock		= DockStyle.Fill,
+		Width		= 1080,
+		Anchor		= AnchorStyles.Top | AnchorStyles.Bottom,
 		GrowStyle	= TableLayoutPanelGrowStyle.FixedSize,
 		CellBorderStyle	= TableLayoutPanelCellBorderStyle.Inset	// debug only
 	};
@@ -70,9 +75,55 @@ InitializeComponent()
 	tlpHeader.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 	tlpHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 18F));
 
+	btnReturn = new Button() {
+		Name		= "btnReturn",
+		Location	= new Point(40, 50),
+		Size		= new Size(18, 18),
+		Text		= "X",
+		FlatStyle	= FlatStyle.Flat
+	};
+	btnReturn.Click += new EventHandler(Return);
+
+	pgb = new ProgressBar() {
+		Name		= "pgb",
+		Location	= new Point(btnReturn.Left + btnReturn.Width + 18, btnReturn.Top),
+		Height		= 16
+	};
+	pgb.Width = 1080 - pgb.Left - 40;
+
+	pnlFooter = new Panel() {
+		Name		= "pnlFooter",
+		Dock		= DockStyle.Bottom,
+		Height		= 140,
+		BorderStyle	= BorderStyle.FixedSingle
+	};
+
+	btnSkip = new Button() {
+		Name		= "btnSkip",
+		Text		= "PASSER",
+		Size		= new Size(150, 50),
+		Left		= 40,
+		Top		= 45,
+		FlatStyle	= FlatStyle.Popup
+	};
+	pnlFooter.Controls.Add(btnSkip);
+
+	btnCheck = new Button() {
+		Name		= "btnCheck",
+		Text		= "VÉRIFIER",
+		Size		= new Size(150, 50),
+		Top		= 45,
+		Left		= Width - 190,
+		Enabled		= false
+	};
+	pnlFooter.Controls.Add(btnCheck);
+
 	tlpMain.Controls.Add(tlpHeader, 0, 0);
 	//tlpMain.Controls.Add(exoMain, 0, 1);
-	Controls.Add(tlpMain);
+	//Controls.Add(tlpMain);
+	Controls.Add(btnReturn);
+	Controls.Add(pgb);
+	Controls.Add(pnlFooter);
 
 	ResumeLayout(false);
 }
@@ -95,6 +146,7 @@ frmLecon(LeconsRow lecon)
 	InitializeComponent();
 	Text = lecon.titreLecon;
 	CurrentExercise = 0;
+	pgb.Step = 100 / Exercises.Count;
 	NextExercise();
 }
 #endregion
@@ -104,6 +156,19 @@ NextExercise()
 {
 	if (Exercises.Count > 0)
 		exoMain = Exercise.GetExercice(Exercises.Dequeue());
+	pgb.PerformStep();
+}
+
+public void
+Return(object sender, EventArgs e)
+{
+	Close();
+}
+
+public void
+Skip(object sender, EventArgs e)
+{
+	
 }
 
 public void
