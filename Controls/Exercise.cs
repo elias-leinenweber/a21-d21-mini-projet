@@ -1,4 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+using TorreDeBabel.baseLangueDataSetTableAdapters;
 
 using static TorreDeBabel.baseLangueDataSet;
 
@@ -41,13 +44,32 @@ InitializeComponent()
 	rowExercice = new RowStyle(SizeType.AutoSize);
 	RowStyles.Add(rowExercice);
 
+	lblEnonce = new Label() {
+		Name	= "lblEnonce",
+		Font	= new Font("Lucida Sans", 18, FontStyle.Bold),
+		AutoSize	= true
+	};
+	Controls.Add(lblEnonce, 0, 0);
+
+	lblPhrase = new Label() {
+		Name	= "lblPhrase"
+	};
+	Controls.Add(lblPhrase, 0, 1);
+
 	ResumeLayout(false);
 }
 #endregion
+#region Champs
+protected static PhrasesTableAdapter pta = new PhrasesTableAdapter();
+protected static PhrasesDataTable Phrases = new PhrasesDataTable();
+#endregion
 protected
-Exercise()
+Exercise(ExercicesRow data)
 {
 	InitializeComponent();
+	pta.Fill(Phrases);
+	lblEnonce.Text = data.enonceExo;
+	//lblPhrase.Text = ((PhrasesRow)Phrases.Select("codePhrase = '" + data.codePhrase + "'")[0]).textePhrase;
 }
 
 public static Exercise

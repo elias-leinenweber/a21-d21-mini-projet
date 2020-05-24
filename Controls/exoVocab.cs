@@ -3,7 +3,7 @@
 namespace TorreDeBabel {
 class exoVocab : Exercise {
 internal
-exoVocab(ExercicesRow data)
+exoVocab(ExercicesRow data) : base(data)
 {
 }
 }

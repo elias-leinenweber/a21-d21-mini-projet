@@ -13,13 +13,10 @@ namespace TorreDeBabel {
 class frmLecon : Form {
 #region Designer
 private System.ComponentModel.IContainer components = null;
-private TableLayoutPanel	tlpMain;
-private TableLayoutPanel	tlpHeader;
-private Button			btnReturn;
-private ProgressBar		pgb;
-private Exercise		exoMain;
-private Panel			pnlFooter;
-private Button			btnSkip, btnCheck;
+private Button		btnCheck, btnReturn, btnSkip;
+private Exercise	exo;
+private Panel		pnlFooter;
+private ProgressBar	pgb;
 
 protected override void
 Dispose(bool disposing)
@@ -49,32 +46,6 @@ InitializeComponent()
 	FormBorderStyle	= FormBorderStyle.None;
 	StartPosition	= FormStartPosition.CenterScreen;
 
-	tlpMain = new TableLayoutPanel() {
-		Name		= "tlpMain",
-		ColumnCount	= 1,
-		RowCount	= 3,
-		Width		= 1080,
-		Anchor		= AnchorStyles.Top | AnchorStyles.Bottom,
-		GrowStyle	= TableLayoutPanelGrowStyle.FixedSize,
-		CellBorderStyle	= TableLayoutPanelCellBorderStyle.Inset	// debug only
-	};
-	tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-	// Le "header" : btnRetour et Progressbar
-	tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 100F));
-	// Le "main" : l'exercice proprement dit
-	tlpMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-	// Le "footer" : le bouton suivant, etc
-	tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 140F));
-
-	tlpHeader = new TableLayoutPanel() {
-		Name		= "tlpHeader",
-		ColumnCount	= 2,
-		RowCount	= 1,
-		GrowStyle	= TableLayoutPanelGrowStyle.FixedSize
-	};
-	tlpHeader.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-	tlpHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 18F));
-
 	btnReturn = new Button() {
 		Name		= "btnReturn",
 		Location	= new Point(40, 50),
@@ -82,6 +53,7 @@ InitializeComponent()
 		Text		= "X",
 		FlatStyle	= FlatStyle.Flat
 	};
+	btnReturn.FlatAppearance.BorderSize = 0;
 	btnReturn.Click += new EventHandler(Return);
 
 	pgb = new ProgressBar() {
@@ -89,7 +61,7 @@ InitializeComponent()
 		Location	= new Point(btnReturn.Left + btnReturn.Width + 18, btnReturn.Top),
 		Height		= 16
 	};
-	pgb.Width = 1080 - pgb.Left - 40;
+	pgb.Width = 1040 - pgb.Left;
 
 	pnlFooter = new Panel() {
 		Name		= "pnlFooter",
@@ -118,9 +90,6 @@ InitializeComponent()
 	};
 	pnlFooter.Controls.Add(btnCheck);
 
-	tlpMain.Controls.Add(tlpHeader, 0, 0);
-	//tlpMain.Controls.Add(exoMain, 0, 1);
-	//Controls.Add(tlpMain);
 	Controls.Add(btnReturn);
 	Controls.Add(pgb);
 	Controls.Add(pnlFooter);
@@ -137,17 +106,24 @@ private int			CurrentExercise;
 public
 frmLecon(LeconsRow lecon)
 {
-	ExercicesDataTable dt = new ExercicesDataTable();
+	ExercicesDataTable dt;
+	
+	dt = new ExercicesDataTable();
 	eta.Fill(dt);
 	Exercises = new Queue<ExercicesRow>();
 	// => LINQ
-	foreach (ExercicesRow exo in dt.Select("numLecon = '" + lecon.numLecon + "' AND numCours = '" + lecon.numCours + "'", "numExo asc"))
+	foreach (ExercicesRow exo in dt.Select("numLecon = '" + lecon.numLecon +
+	    "' AND numCours = '" + lecon.numCours + "'", "numExo asc"))
 		Exercises.Enqueue(exo);
+
 	InitializeComponent();
+
 	Text = lecon.titreLecon;
 	CurrentExercise = 0;
 	pgb.Step = 100 / Exercises.Count;
 	NextExercise();
+	exo.Location = new Point((1080 - 600) / 2, 100);
+	Controls.Add(exo);
 }
 #endregion
 #region Méthodes
@@ -155,7 +131,7 @@ private void
 NextExercise()
 {
 	if (Exercises.Count > 0)
-		exoMain = Exercise.GetExercice(Exercises.Dequeue());
+		exo = Exercise.GetExercice(Exercises.Dequeue());
 	pgb.PerformStep();
 }
 

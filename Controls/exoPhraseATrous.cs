@@ -3,7 +3,7 @@
 namespace TorreDeBabel {
 class exoPhraseATrous : Exercise {
 internal
-exoPhraseATrous(ExercicesRow data)
+exoPhraseATrous(ExercicesRow data) : base(data)
 {
 }
 }
