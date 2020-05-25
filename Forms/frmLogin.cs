@@ -26,6 +26,7 @@ InitializeComponent()
 	ClientSize = new Size(320, 48);
 	Text = "frmLogin";
 	Font = Properties.Settings.Default.DisplayFont;
+	StartPosition = FormStartPosition.CenterParent;
 
 	cboUsers = new ComboBox() {
 		Name		= "cboUsers",

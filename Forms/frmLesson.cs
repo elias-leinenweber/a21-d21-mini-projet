@@ -13,7 +13,7 @@ namespace TorreDeBabel {
 class frmLesson : Form {
 #region Designer
 private System.ComponentModel.IContainer components = null;
-private Button		btnCheck, btnReturn, btnSkip;
+private Button		btnCheck, btnContinue, btnReturn, btnSkip;
 private Exercise	exo;
 private Panel		pnlFooter;
 private ProgressBar	pgb;
@@ -86,9 +86,20 @@ InitializeComponent()
 		Size		= new Size(150, 50),
 		Top		= 45,
 		Left		= Width - 190,
-		Enabled		= false
+		//Enabled		= false
 	};
+	btnCheck.Click += new EventHandler(Check);
 	pnlFooter.Controls.Add(btnCheck);
+
+	btnContinue = new Button() {
+		Name		= "btnContinue",
+		Text		= "CONTINUER",
+		Size		= btnCheck.Size,
+		Location	= btnCheck.Location,
+		Visible		= false
+	};
+	btnContinue.Click += new EventHandler(Continue);
+	pnlFooter.Controls.Add(btnContinue);
 
 	Controls.Add(btnReturn);
 	Controls.Add(pgb);
@@ -145,6 +156,21 @@ public void
 Skip(object sender, EventArgs e)
 {
 	
+}
+
+public void
+Check(object sender, EventArgs e)
+{
+	pnlFooter.BackColor = exo.IsValid() ? Color.Honeydew : Color.LightPink;
+	btnContinue.Visible = true;
+	btnContinue.BringToFront();
+}
+
+public void
+Continue(object sender, EventArgs e)
+{
+	btnContinue.Visible = false;
+	NextExercise();
 }
 
 public void

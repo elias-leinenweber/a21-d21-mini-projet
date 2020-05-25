@@ -86,5 +86,7 @@ GetExercice(ExercicesRow data)
 		res = new exoMissingWords(data);
 	return res;
 }
+
+public abstract bool IsValid();
 }
 }

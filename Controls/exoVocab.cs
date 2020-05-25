@@ -8,5 +8,10 @@ internal
 exoVocab(ExercicesRow data) : base(data)
 {
 }
+
+public override bool IsValid()
+{
+	return true;
+}
 }
 }

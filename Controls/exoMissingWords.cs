@@ -16,6 +16,7 @@ exoMissingWords(ExercicesRow data) : base(data)
 private void
 CreateChallenge(string sentence, string wordList)
 {
+	Control toAdd;
 	string[] words;
 	bool[] hide;
 
@@ -25,10 +26,26 @@ CreateChallenge(string sentence, string wordList)
 		hide[int.Parse(word) - 1] = true;
 	for (int i = 0; i < words.Length; ++i) {
 		if (hide[i])
-			flp.Controls.Add(new TextBox());
+			toAdd = new TextBox() {
+				Name	= "txt" + i,
+				Tag	= words[i]
+			};
 		else
-			flp.Controls.Add(new Label(){ Text = words[i], AutoSize = true });
+			toAdd = new Label(){ Text = words[i], AutoSize = true };
+		flp.Controls.Add(toAdd);
 	}
+}
+
+public override bool
+IsValid()
+{
+	TextBox[] userInputs;
+
+	userInputs = flp.Controls.OfType<TextBox>().ToArray();
+	foreach (TextBox input in userInputs)
+		if (input.Text != (string)input.Tag)
+			return false;
+	return true;
 }
 }
 }

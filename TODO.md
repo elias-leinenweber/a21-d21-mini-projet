@@ -12,6 +12,7 @@
 
 # frmLecon
 - terminer squelette interface
+- verrouiller btnNext tq user a pas interagi
 
 # Ergonomie
 - Thème clair & sombre

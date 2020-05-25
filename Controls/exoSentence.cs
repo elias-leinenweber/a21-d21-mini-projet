@@ -6,7 +6,7 @@ using TorreDeBabel.baseLangueDataSetTableAdapters;
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
-class exoSentence : Exercise {
+abstract class exoSentence : Exercise {
 protected FlowLayoutPanel flp;
 
 protected static PhrasesTableAdapter pta = new PhrasesTableAdapter();
