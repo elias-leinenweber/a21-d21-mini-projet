@@ -10,7 +10,7 @@ using TorreDeBabel.baseLangueDataSetTableAdapters;
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
-class frmLecon : Form {
+class frmLesson : Form {
 #region Designer
 private System.ComponentModel.IContainer components = null;
 private Button		btnCheck, btnReturn, btnSkip;
@@ -104,7 +104,7 @@ private int			CurrentExercise;
 #endregion
 #region Constructeurs
 public
-frmLecon(LeconsRow lecon)
+frmLesson(LeconsRow lesson)
 {
 	ExercicesDataTable dt;
 	
@@ -112,17 +112,17 @@ frmLecon(LeconsRow lecon)
 	eta.Fill(dt);
 	Exercises = new Queue<ExercicesRow>();
 	// => LINQ
-	foreach (ExercicesRow exo in dt.Select("numLecon = '" + lecon.numLecon +
-	    "' AND numCours = '" + lecon.numCours + "'", "numExo asc"))
+	foreach (ExercicesRow exo in dt.Select("numLecon = '" + lesson.numLecon +
+	    "' AND numCours = '" + lesson.numCours + "'", "numExo asc"))
 		Exercises.Enqueue(exo);
 
 	InitializeComponent();
 
-	Text = lecon.titreLecon;
+	Text = lesson.titreLecon;
 	CurrentExercise = 0;
 	pgb.Step = 100 / Exercises.Count;
 	NextExercise();
-	exo.Location = new Point((1080 - 600) / 2, 100);
+	exo.Location = new Point((Width - exo.Width) / 2, 100);
 	Controls.Add(exo);
 }
 #endregion

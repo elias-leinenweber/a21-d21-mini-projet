@@ -1,4 +1,6 @@
-﻿using static TorreDeBabel.baseLangueDataSet;
+﻿using System.Windows.Forms;
+
+using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
 class exoVocab : Exercise {

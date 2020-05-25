@@ -1,7 +1,7 @@
 ﻿using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
-class exoPhraseDesordre : Exercise {
+class exoPhraseDesordre : exoSentence {
 internal
 exoPhraseDesordre(ExercicesRow data) : base(data)
 {

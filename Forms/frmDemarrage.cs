@@ -8,8 +8,9 @@ namespace TorreDeBabel {
 public class frmDemarrage : Form {
 #region Designer
 private System.ComponentModel.IContainer components = null;
-private Button btnRegister;
-private Button btnLogin;
+private Label	lblLogo;
+private Button	btnRegister;
+private Button	btnLogin;
 
 protected override void
 Dispose(bool disposing)
@@ -34,6 +35,17 @@ InitializeComponent()
 	MaximizeBox		= false;
 	StartPosition		= FormStartPosition.CenterScreen;
 
+	lblLogo = new Label() {
+		Name		= "lblLogo",
+		Text		= "TORRE DE BABEL",
+		Size		= new Size(153, 36),
+		Location	= new Point(40, 18),
+		Font		= Properties.Settings.Default.LogoFont,
+		ForeColor	= Color.Crimson,
+		BackColor	= Color.Transparent,
+		AutoSize	= true
+	};
+
 	btnRegister = new Button() {
 		Name		= "btnInscrire",
 		Size		= new Size(320, 48),
@@ -56,6 +68,7 @@ InitializeComponent()
 	};
 	btnLogin.Click += new EventHandler(Login);
 
+	Controls.Add(lblLogo);
 	Controls.Add(btnRegister);
 	Controls.Add(btnLogin);
 

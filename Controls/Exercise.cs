@@ -9,11 +9,11 @@ namespace TorreDeBabel {
 abstract class Exercise : TableLayoutPanel {
 #region Designer
 private System.ComponentModel.IContainer components = null;
-protected RowStyle	rowEnonce;
-protected Label		lblEnonce;
-protected RowStyle	rowPhrase;
-protected Label		lblPhrase;
-protected RowStyle	rowExercice;
+protected RowStyle	rowHeader;
+protected Label		lblHeader;
+protected RowStyle	rowSentence;
+protected Label		lblSentence;
+protected RowStyle	rowChallenge;
 
 protected override void
 Dispose(bool disposing)
@@ -28,48 +28,49 @@ InitializeComponent()
 {
 	SuspendLayout();
 
+	Height = 450;
 	Width = 600;
+	Font = Properties.Settings.Default.DisplayFont;
 
 	ColumnCount	= 1;
 	RowCount	= 3;
 
 	ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
 	
-	rowEnonce = new RowStyle(SizeType.Absolute, 40F);
-	RowStyles.Add(rowEnonce);
+	rowHeader = new RowStyle(SizeType.Absolute, 40F);
+	RowStyles.Add(rowHeader);
 
-	rowPhrase = new RowStyle(SizeType.Absolute, 60F);
-	RowStyles.Add(rowPhrase);
+	rowSentence = new RowStyle(SizeType.Absolute, 60F);
+	RowStyles.Add(rowSentence);
 
-	rowExercice = new RowStyle(SizeType.AutoSize);
-	RowStyles.Add(rowExercice);
+	//rowChallenge = new RowStyle(SizeType.AutoSize);
+	rowChallenge = new RowStyle(SizeType.Absolute, 300F);
+	RowStyles.Add(rowChallenge);
 
-	lblEnonce = new Label() {
+	lblHeader = new Label() {
 		Name	= "lblEnonce",
-		Font	= new Font("Lucida Sans", 18, FontStyle.Bold),
+		Font	= new Font(Font.FontFamily, 32, FontStyle.Bold, GraphicsUnit.Pixel), 
 		AutoSize	= true
 	};
-	Controls.Add(lblEnonce, 0, 0);
+	Controls.Add(lblHeader, 0, 0);
 
-	lblPhrase = new Label() {
-		Name	= "lblPhrase"
+	lblSentence = new Label() {
+		Name	= "lblPhrase",
+		AutoSize	= true
 	};
-	Controls.Add(lblPhrase, 0, 1);
+	Controls.Add(lblSentence, 0, 1);
 
 	ResumeLayout(false);
 }
 #endregion
 #region Champs
-protected static PhrasesTableAdapter pta = new PhrasesTableAdapter();
-protected static PhrasesDataTable Phrases = new PhrasesDataTable();
+
 #endregion
 protected
 Exercise(ExercicesRow data)
 {
 	InitializeComponent();
-	pta.Fill(Phrases);
-	lblEnonce.Text = data.enonceExo;
-	//lblPhrase.Text = ((PhrasesRow)Phrases.Select("codePhrase = '" + data.codePhrase + "'")[0]).textePhrase;
+	lblHeader.Text = data.enonceExo;
 }
 
 public static Exercise
@@ -82,7 +83,7 @@ GetExercice(ExercicesRow data)
 	else if (data.listeMots == string.Empty)
 		res = new exoPhraseDesordre(data);
 	else
-		res = new exoPhraseATrous(data);
+		res = new exoMissingWords(data);
 	return res;
 }
 }

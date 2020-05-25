@@ -1,6 +1,3 @@
-# frmDemarrage
-- Ajouter logo (top-left corner)
-
 # frmRegister
 - Implémenter
 

@@ -260,7 +260,7 @@ StartLesson(object sender, EventArgs e)
 	object dbo = ((DataNode)treeView1.SelectedNode).DataBoundObject;
 
 	if (dbo.GetType() == typeof(LeconsRow)) {
-		using (frmLecon modal = new frmLecon((LeconsRow)dbo)) {
+		using (frmLesson modal = new frmLesson((LeconsRow)dbo)) {
 			modal.ShowDialog();
 			if (modal.DialogResult == DialogResult.OK)
 				++user.codeLeçon;

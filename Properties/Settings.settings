@@ -13,5 +13,8 @@
     <Setting Name="DisplayFont" Type="System.Drawing.Font" Scope="Application">
       <Value Profile="(Default)">Lucida Sans, 12pt</Value>
     </Setting>
+    <Setting Name="LogoFont" Type="System.Drawing.Font" Scope="Application">
+      <Value Profile="(Default)">Britannic Bold, 27.75pt</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
