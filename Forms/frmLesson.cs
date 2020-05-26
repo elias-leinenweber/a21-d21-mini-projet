@@ -13,17 +13,19 @@ namespace TorreDeBabel {
 class frmLesson : Form {
 #region Designer
 private System.ComponentModel.IContainer components = null;
-private Button		btnCheck, btnContinue, btnReturn, btnSkip;
+private Button		btnReturn;
+private ProgressBar	pgb;
 private Exercise	exo;
 private Panel		pnlFooter;
-private ProgressBar	pgb;
+private Button		btnSkip;
+private Button		btnCheck;
+private Button		btnContinue;
 
 protected override void
 Dispose(bool disposing)
 {
-	if (disposing && components != null) {
+	if (disposing && components != null)
 		components.Dispose();
-	}
 	base.Dispose(disposing);
 }
 
@@ -33,13 +35,10 @@ InitializeComponent()
 	components = new System.ComponentModel.Container();
 	SuspendLayout();
 
-	AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-	ClientSize = new System.Drawing.Size(1080, 450);
-	Text = "frmLecon";
-
 	Name		= "frmLecon";
 	Font		= Properties.Settings.Default.DisplayFont;
-	Size		= new Size(1080, 720);
+	AutoScaleMode	= AutoScaleMode.Font;
+	ClientSize	= new Size(1080, 690);
 	BackColor	= Color.White;
 	ForeColor	= Color.FromArgb(60, 60, 60);
 	ControlBox	= false;
@@ -78,6 +77,7 @@ InitializeComponent()
 		Top		= 45,
 		FlatStyle	= FlatStyle.Popup
 	};
+	btnSkip.Click += new EventHandler(Skip);
 	pnlFooter.Controls.Add(btnSkip);
 
 	btnCheck = new Button() {
@@ -96,6 +96,7 @@ InitializeComponent()
 		Text		= "CONTINUER",
 		Size		= btnCheck.Size,
 		Location	= btnCheck.Location,
+		ForeColor	= Color.White,
 		Visible		= false
 	};
 	btnContinue.Click += new EventHandler(Continue);
@@ -152,13 +153,18 @@ NextExercise()
 public void
 Return(object sender, EventArgs e)
 {
-	Close();
+	if (MessageBox.Show(
+	    "Êtes-vous sûr de vouloir quitter ? " +
+	    "Tout le progrès dans cette session sera perdu.", "Confirmation",
+	    MessageBoxButtons.OKCancel, MessageBoxIcon.Warning
+	) == DialogResult.OK)
+		Close();
 }
 
 public void
 Skip(object sender, EventArgs e)
 {
-	
+	Fail();
 }
 
 public void
@@ -167,12 +173,8 @@ Check(object sender, EventArgs e)
 	if (exo.IsValid()) {
 		pnlFooter.BackColor = Color.FromArgb(184, 242, 139);
 		btnContinue.BackColor = pnlFooter.ForeColor = Color.FromArgb(88, 167, 0);
-	} else {
-		Exercises.Enqueue(exo.data);
-		pnlFooter.BackColor = Color.FromArgb(255, 193, 193);
-		btnContinue.BackColor = pnlFooter.ForeColor = Color.FromArgb(234, 43, 43);
-	}
-	btnContinue.ForeColor = Color.White;
+	} else
+		Fail();
 	
 	btnContinue.Visible = true;
 	btnContinue.BringToFront();
@@ -185,6 +187,16 @@ Continue(object sender, EventArgs e)
 	pnlFooter.BackColor = Color.Transparent;
 	pnlFooter.ForeColor = Color.FromArgb(60, 60, 60);
 	NextExercise();
+}
+
+private void
+Fail()
+{
+	Exercises.Enqueue(exo.data);
+	pnlFooter.BackColor = Color.FromArgb(255, 193, 193);
+	btnContinue.BackColor = pnlFooter.ForeColor = Color.FromArgb(234, 43, 43);
+	btnContinue.Visible = true;
+	btnContinue.BringToFront();
 }
 
 public void

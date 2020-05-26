@@ -80,6 +80,10 @@ GetExercice(ExercicesRow data)
 	Exercise res;
 
 	if (data.codePhrase == 0)
+	// TODO
+	// Les exos de vocabulaire, sont des exos pour lesquels il n'y a pas de
+	// phrase, ni de n° de verbe et par contre des lignes resultant d'une jointure
+	// avec la table ConcerneMots.
 		res = new exoVocab(data);
 	else if (data.completeON)
 		res = new exoPhraseDesordre(data);
