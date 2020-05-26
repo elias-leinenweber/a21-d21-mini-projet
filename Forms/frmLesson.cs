@@ -141,8 +141,11 @@ frmLesson(LeconsRow lesson)
 private void
 NextExercise()
 {
+	Controls.Remove(exo);
 	if (Exercises.Count > 0)
 		exo = Exercise.GetExercice(Exercises.Dequeue());
+	exo.Location = new Point((Width - exo.Width) / 2, 100);
+	Controls.Add(exo);
 	pgb.PerformStep();
 }
 
@@ -161,7 +164,16 @@ Skip(object sender, EventArgs e)
 public void
 Check(object sender, EventArgs e)
 {
-	pnlFooter.BackColor = exo.IsValid() ? Color.Honeydew : Color.LightPink;
+	if (exo.IsValid()) {
+		pnlFooter.BackColor = Color.FromArgb(184, 242, 139);
+		btnContinue.BackColor = pnlFooter.ForeColor = Color.FromArgb(88, 167, 0);
+	} else {
+		Exercises.Enqueue(exo.data);
+		pnlFooter.BackColor = Color.FromArgb(255, 193, 193);
+		btnContinue.BackColor = pnlFooter.ForeColor = Color.FromArgb(234, 43, 43);
+	}
+	btnContinue.ForeColor = Color.White;
+	
 	btnContinue.Visible = true;
 	btnContinue.BringToFront();
 }
@@ -170,6 +182,8 @@ public void
 Continue(object sender, EventArgs e)
 {
 	btnContinue.Visible = false;
+	pnlFooter.BackColor = Color.Transparent;
+	pnlFooter.ForeColor = Color.FromArgb(60, 60, 60);
 	NextExercise();
 }
 

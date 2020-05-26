@@ -63,13 +63,14 @@ InitializeComponent()
 	ResumeLayout(false);
 }
 #endregion
-#region Champs
-
+#region Propriétés
+public readonly ExercicesRow data;
 #endregion
 protected
 Exercise(ExercicesRow data)
 {
 	InitializeComponent();
+	this.data = data;
 	lblHeader.Text = data.enonceExo;
 }
 
@@ -80,7 +81,7 @@ GetExercice(ExercicesRow data)
 
 	if (data.codePhrase == 0)
 		res = new exoVocab(data);
-	else if (data.listeMots == string.Empty)
+	else if (data.completeON)
 		res = new exoPhraseDesordre(data);
 	else
 		res = new exoMissingWords(data);
