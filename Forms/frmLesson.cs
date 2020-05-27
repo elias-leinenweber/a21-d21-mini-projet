@@ -112,7 +112,7 @@ InitializeComponent()
 #region Champs
 private static ExercicesTableAdapter eta = new ExercicesTableAdapter();
 private Queue<ExercicesRow>	Exercises;
-private int			CurrentExercise;
+private int			ValidExos;
 #endregion
 #region Constructeurs
 public
@@ -131,8 +131,9 @@ frmLesson(LeconsRow lesson)
 	InitializeComponent();
 
 	Text = lesson.titreLecon;
-	CurrentExercise = 0;
+	ValidExos = 0;
 	pgb.Step = 100 / Exercises.Count;
+	UpdateProgress();
 	NextExercise();
 	exo.Location = new Point((Width - exo.Width) / 2, 100);
 	Controls.Add(exo);
@@ -147,7 +148,6 @@ NextExercise()
 		exo = Exercise.GetExercice(Exercises.Dequeue());
 	exo.Location = new Point((Width - exo.Width) / 2, 100);
 	Controls.Add(exo);
-	pgb.PerformStep();
 }
 
 public void
@@ -171,6 +171,7 @@ public void
 Check(object sender, EventArgs e)
 {
 	if (exo.IsValid()) {
+		pgb.PerformStep();
 		pnlFooter.BackColor = Color.FromArgb(184, 242, 139);
 		btnContinue.BackColor = pnlFooter.ForeColor = Color.FromArgb(88, 167, 0);
 	} else
@@ -187,6 +188,12 @@ Continue(object sender, EventArgs e)
 	pnlFooter.BackColor = Color.Transparent;
 	pnlFooter.ForeColor = Color.FromArgb(60, 60, 60);
 	NextExercise();
+}
+
+private void
+UpdateProgress()
+{
+	
 }
 
 private void

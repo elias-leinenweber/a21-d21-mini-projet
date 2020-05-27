@@ -58,6 +58,7 @@ InitializeComponent()
 		Name	= "lblPhrase",
 		AutoSize	= true
 	};
+	lblSentence.Height += 24;
 	Controls.Add(lblSentence, 0, 1);
 
 	ResumeLayout(false);
@@ -92,6 +93,7 @@ GetExercice(ExercicesRow data)
 	return res;
 }
 
-public abstract bool IsValid();
+public abstract bool
+IsValid();
 }
 }
