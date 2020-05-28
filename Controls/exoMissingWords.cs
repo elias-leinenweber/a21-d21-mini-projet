@@ -32,7 +32,7 @@ CreateChallenge(string sentence, string wordList)
 			};
 		else
 			toAdd = new Label(){ Text = words[i], AutoSize = true };
-		flp.Controls.Add(toAdd);
+		flpChallenge.Controls.Add(toAdd);
 	}
 }
 
@@ -41,7 +41,7 @@ IsValid()
 {
 	TextBox[] userInputs;
 
-	userInputs = flp.Controls.OfType<TextBox>().ToArray();
+	userInputs = flpChallenge.Controls.OfType<TextBox>().ToArray();
 	foreach (TextBox input in userInputs)
 		if (input.Text != (string)input.Tag)
 			return false;

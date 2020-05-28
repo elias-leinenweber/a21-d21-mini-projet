@@ -14,6 +14,7 @@ protected Label		lblHeader;
 protected RowStyle	rowSentence;
 protected Label		lblSentence;
 protected RowStyle	rowChallenge;
+protected FlowLayoutPanel flpChallenge;
 
 protected override void
 Dispose(bool disposing)
@@ -60,6 +61,12 @@ InitializeComponent()
 	};
 	lblSentence.Height += 24;
 	Controls.Add(lblSentence, 0, 1);
+
+	flpChallenge = new FlowLayoutPanel() {
+		Name	= "flp",
+		Dock	= DockStyle.Fill
+	};
+	Controls.Add(flpChallenge, 0, 2);
 
 	ResumeLayout(false);
 }

@@ -17,10 +17,10 @@ exoPhraseDesordre(ExercicesRow data) : base(data)
 	lblSentence.Text = sentence.traducPhrase;
 	flpSentence = new FlowLayoutPanel() {
 		BackColor	= Color.FromArgb(229, 229, 229),
-		Width		= flp.Width,
+		Width		= flpChallenge.Width,
 		//AutoSize	= true
 	};
-	flp.Controls.Add(flpSentence);
+	flpChallenge.Controls.Add(flpSentence);
 	CreateChallenge(sentence.textePhrase);
 }
 
@@ -42,7 +42,7 @@ CreateChallenge(string sentence)
 			// bordercolor e5e5e5
 		};
 		lblWord.Click += new EventHandler(ToggleWord);
-		flp.Controls.Add(lblWord);
+		flpChallenge.Controls.Add(lblWord);
 	}
 	Answer = sentence;
 }
@@ -52,12 +52,12 @@ ToggleWord(object sender, EventArgs e)
 {
 	Label word = (Label)sender;
 
-	if (word.Parent == flp) {
-		flp.Controls.Remove(word);
+	if (word.Parent == flpChallenge) {
+		flpChallenge.Controls.Remove(word);
 		flpSentence.Controls.Add(word);
 	} else {
 		flpSentence.Controls.Remove(word);
-		flp.Controls.Add(word);
+		flpChallenge.Controls.Add(word);
 	}
 }
 

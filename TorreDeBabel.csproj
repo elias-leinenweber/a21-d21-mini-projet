@@ -87,6 +87,9 @@
     <Compile Include="Controls\ProgressTree.Designer.cs">
       <DependentUpon>ProgressTree.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\VocabCard.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\baseLangueDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
