@@ -10,6 +10,7 @@ class exoPhraseDesordre : exoSentence {
 private FlowLayoutPanel	flpSentence;
 private static Random	rnd = new Random();
 private string		Answer;
+
 internal
 exoPhraseDesordre(ExercicesRow data) : base(data)
 {

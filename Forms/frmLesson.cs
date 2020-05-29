@@ -13,13 +13,6 @@ namespace TorreDeBabel {
 class frmLesson : Form {
 #region Designer
 private System.ComponentModel.IContainer components = null;
-private Button		btnReturn;
-private ProgressBar	pgb;
-private Exercise	exo;
-private Panel		pnlFooter;
-private Button		btnSkip;
-private Button		btnCheck;
-private Button		btnContinue;
 
 protected override void
 Dispose(bool disposing)
@@ -108,6 +101,14 @@ InitializeComponent()
 
 	ResumeLayout(false);
 }
+
+private Button		btnReturn;
+private ProgressBar	pgb;
+private Exercise	exo;
+private Panel		pnlFooter;
+private Button		btnSkip;
+private Button		btnCheck;
+private Button		btnContinue;
 #endregion
 #region Champs
 private static ExercicesTableAdapter eta = new ExercicesTableAdapter();
@@ -146,6 +147,10 @@ NextExercise()
 	Controls.Remove(exo);
 	if (Exercises.Count > 0)
 		exo = Exercise.GetExercice(Exercises.Dequeue());
+	else {
+		MessageBox.Show("Récapitulatif");
+		Close();
+	}
 	exo.Location = new Point((Width - exo.Width) / 2, 100);
 	Controls.Add(exo);
 }
@@ -174,6 +179,7 @@ Check(object sender, EventArgs e)
 		pgb.PerformStep();
 		pnlFooter.BackColor = Color.FromArgb(184, 242, 139);
 		btnContinue.BackColor = pnlFooter.ForeColor = Color.FromArgb(88, 167, 0);
+		exo.Freeze();
 	} else
 		Fail();
 	
@@ -199,6 +205,7 @@ UpdateProgress()
 private void
 Fail()
 {
+	exo.Freeze();
 	Exercises.Enqueue(exo.data);
 	pnlFooter.BackColor = Color.FromArgb(255, 193, 193);
 	btnContinue.BackColor = pnlFooter.ForeColor = Color.FromArgb(234, 43, 43);

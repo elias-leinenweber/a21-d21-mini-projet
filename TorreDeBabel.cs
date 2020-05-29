@@ -11,7 +11,7 @@ static void
 Main()
 {
 	try {
-		//Application.EnableVisualStyles();
+		Application.EnableVisualStyles();
 		Application.Run(new frmDemarrage());
 	} catch (Exception e) {
 		MessageBox.Show(e.Message, e.GetType().Name,

@@ -60,6 +60,7 @@ private Label		lblCaption;
 private RowStyle	rowRegion;
 private Label		lblRegion;
 
+internal
 VocabCard(MotsRow word)
 {
 	Name = "vcb" + word.numMot;

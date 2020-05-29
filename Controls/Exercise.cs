@@ -9,12 +9,6 @@ namespace TorreDeBabel {
 abstract class Exercise : TableLayoutPanel {
 #region Designer
 private System.ComponentModel.IContainer components = null;
-protected RowStyle	rowHeader;
-protected Label		lblHeader;
-protected RowStyle	rowSentence;
-protected Label		lblSentence;
-protected RowStyle	rowChallenge;
-protected FlowLayoutPanel flpChallenge;
 
 protected override void
 Dispose(bool disposing)
@@ -29,9 +23,8 @@ InitializeComponent()
 {
 	SuspendLayout();
 
-	Height = 450;
-	Width = 600;
-	Font = Properties.Settings.Default.DisplayFont;
+	Size	= new Size(600, 450);
+	Font	= Properties.Settings.Default.DisplayFont;
 
 	ColumnCount	= 1;
 	RowCount	= 3;
@@ -44,32 +37,39 @@ InitializeComponent()
 	rowSentence = new RowStyle(SizeType.Absolute, 60F);
 	RowStyles.Add(rowSentence);
 
-	//rowChallenge = new RowStyle(SizeType.AutoSize);
 	rowChallenge = new RowStyle(SizeType.Absolute, 300F);
 	RowStyles.Add(rowChallenge);
 
 	lblHeader = new Label() {
-		Name	= "lblEnonce",
-		Font	= new Font(Font.FontFamily, 32, FontStyle.Bold, GraphicsUnit.Pixel), 
-		AutoSize	= true
+		Name		= "lblHeader",
+		AutoSize	= true,
+		Font		= new Font(Font.FontFamily, 32, FontStyle.Bold,
+					   GraphicsUnit.Pixel)
 	};
 	Controls.Add(lblHeader, 0, 0);
 
 	lblSentence = new Label() {
-		Name	= "lblPhrase",
+		Name		= "lblSentence",
 		AutoSize	= true
 	};
 	lblSentence.Height += 24;
 	Controls.Add(lblSentence, 0, 1);
 
 	flpChallenge = new FlowLayoutPanel() {
-		Name	= "flp",
+		Name	= "flpChallenge",
 		Dock	= DockStyle.Fill
 	};
 	Controls.Add(flpChallenge, 0, 2);
 
 	ResumeLayout(false);
 }
+
+protected RowStyle		rowHeader;
+protected Label			lblHeader;
+protected RowStyle		rowSentence;
+protected Label			lblSentence;
+protected RowStyle		rowChallenge;
+protected FlowLayoutPanel	flpChallenge;
 #endregion
 #region Propriétés
 public readonly ExercicesRow data;
@@ -77,8 +77,8 @@ public readonly ExercicesRow data;
 protected
 Exercise(ExercicesRow data)
 {
-	InitializeComponent();
 	this.data = data;
+	InitializeComponent();
 	lblHeader.Text = data.enonceExo;
 }
 
@@ -102,5 +102,12 @@ GetExercice(ExercicesRow data)
 
 public abstract bool
 IsValid();
+
+public void
+Freeze()
+{
+	foreach (Control control in flpChallenge.Controls)
+		control.Enabled = false;
+}
 }
 }
