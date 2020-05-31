@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 using static TorreDeBabel.baseLangueDataSet;
 
-namespace TorreDeBabel.Controls {
+namespace TorreDeBabel {
 class VocabCard  : TableLayoutPanel {
 private System.ComponentModel.IContainer components = null;
 
@@ -20,6 +20,7 @@ InitializeComponent()
 {
 	SuspendLayout();
 
+	Size		= new Size(200, 300);
 	ColumnCount	= 1;
 	RowCount	= 3;
 
@@ -66,10 +67,11 @@ VocabCard(MotsRow word)
 	Name = "vcb" + word.numMot;
 	InitializeComponent();
 
-	if (!word.IscheminPhotoNull())
+	if (!word.IscheminPhotoNull()) {
 		pcbImage.Image = (Bitmap)Properties.Resources.ResourceManager.GetObject(
 		    word.cheminPhoto.Remove(word.cheminPhoto.IndexOf(".jpg"))
 		);
+	}
 
 	lblCaption.Text = word.libMot;
 	lblRegion.Text = word.origine;

@@ -25,6 +25,7 @@ InitializeComponent()
 
 	Size	= new Size(600, 450);
 	Font	= Properties.Settings.Default.DisplayFont;
+	CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
 	ColumnCount	= 1;
 	RowCount	= 3;

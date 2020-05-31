@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Linq;
+using System.Windows.Forms;
 
 using TorreDeBabel.baseLangueDataSetTableAdapters;
 
@@ -16,9 +17,11 @@ exoVocab(ExercicesRow data) : base(data)
 	MotsDataTable mdt = new MotsDataTable();
 	mta.Fill(mdt);
 	cmta.Fill(cmdt);
-	//MotsRow[] words = cmdt.Select("")
-	// foreach mot
-	// flpChallenge.Controls.Add(new VocabCard());
+	MotsRow[] words = cmdt.Select(
+	    "numCours = '" + data.numCours + "' AND numLecon = '" + data.numLecon + "' AND numExo = '" + data.numExo + "'"
+	).Select(cm => mdt[((ConcerneMotsRow)cm).numMot]).ToArray();
+	foreach (MotsRow word in words)
+		flpChallenge.Controls.Add(new VocabCard(word));
 }
 
 public override bool
