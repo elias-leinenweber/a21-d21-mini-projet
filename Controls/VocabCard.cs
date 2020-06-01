@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 using static TorreDeBabel.baseLangueDataSet;
@@ -67,11 +68,9 @@ VocabCard(MotsRow word)
 	Name = "vcb" + word.numMot;
 	InitializeComponent();
 
-	if (!word.IscheminPhotoNull()) {
-		pcbImage.Image = (Bitmap)Properties.Resources.ResourceManager.GetObject(
-		    word.cheminPhoto.Remove(word.cheminPhoto.IndexOf(".jpg"))
-		);
-	}
+	if (!word.IscheminPhotoNull())
+		pcbImage.Image = (Bitmap)Properties.Resources.ResourceManager
+		    .GetObject(word.cheminPhoto.Remove(word.cheminPhoto.IndexOf('.')));
 
 	lblCaption.Text = word.libMot;
 	lblRegion.Text = word.origine;

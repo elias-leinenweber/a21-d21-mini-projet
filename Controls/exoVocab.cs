@@ -13,6 +13,7 @@ protected static ConcerneMotsDataTable    cmdt = new ConcerneMotsDataTable();
 internal
 exoVocab(ExercicesRow data) : base(data)
 {
+	rowSentence.Height = 0;
 	MotsTableAdapter mta = new MotsTableAdapter();
 	MotsDataTable mdt = new MotsDataTable();
 	mta.Fill(mdt);

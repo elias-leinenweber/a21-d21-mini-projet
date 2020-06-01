@@ -42,7 +42,9 @@ InitializeComponent()
 		Name		= "btnReturn",
 		Location	= new Point(40, 50),
 		Size		= new Size(18, 18),
-		Text		= "X",
+		Font		= new Font("Webdings", 10),
+		Text		= "r",
+		ForeColor	= Color.FromArgb(186, 186, 186),
 		FlatStyle	= FlatStyle.Flat
 	};
 	btnReturn.FlatAppearance.BorderSize = 0;
@@ -68,7 +70,6 @@ InitializeComponent()
 		Size		= new Size(150, 50),
 		Left		= 40,
 		Top		= 45,
-		FlatStyle	= FlatStyle.Popup
 	};
 	btnSkip.Click += new EventHandler(Skip);
 	pnlFooter.Controls.Add(btnSkip);
@@ -95,6 +96,17 @@ InitializeComponent()
 	btnContinue.Click += new EventHandler(Continue);
 	pnlFooter.Controls.Add(btnContinue);
 
+	lblSolutionHeader = new Label() {
+		Name		= "lblSolutionHeader",
+		Text		= "Solution correcte :",
+		Location	= new Point(96, 16),
+		AutoSize	= true,
+		Font		= new Font(Font.FontFamily, 24, FontStyle.Bold, GraphicsUnit.Pixel),
+		ForeColor	= Color.FromArgb(234, 43, 43),
+		Visible		= false
+	};
+	pnlFooter.Controls.Add(lblSolutionHeader);
+
 	Controls.Add(btnReturn);
 	Controls.Add(pgb);
 	Controls.Add(pnlFooter);
@@ -109,50 +121,59 @@ private Panel		pnlFooter;
 private Button		btnSkip;
 private Button		btnCheck;
 private Button		btnContinue;
+private Label		lblSolutionHeader;
+private Label		lblSolutionContent;
 #endregion
 #region Champs
-private static ExercicesTableAdapter eta = new ExercicesTableAdapter();
+private static ExercicesTableAdapter	eta = new ExercicesTableAdapter();
+private static ExercicesDataTable	edt = new ExercicesDataTable();
 private Queue<ExercicesRow>	Exercises;
-private int			ValidExos;
 #endregion
 #region Constructeurs
 public
 frmLesson(LeconsRow lesson)
 {
-	ExercicesDataTable dt;
-	
-	dt = new ExercicesDataTable();
-	eta.Fill(dt);
-	Exercises = new Queue<ExercicesRow>();
-	// => LINQ
-	foreach (ExercicesRow exo in dt.Select("numLecon = '" + lesson.numLecon +
-	    "' AND numCours = '" + lesson.numCours + "'", "numExo asc"))
-		Exercises.Enqueue(exo);
+	eta.Fill(edt);
+	Exercises = new Queue<ExercicesRow>((ExercicesRow[])edt.Select(
+	   "numLecon = '" + lesson.numLecon +
+	       "' AND numCours = '" + lesson.numCours + "'",
+	   "numExo asc"
+	));
 
-	InitializeComponent();
-
-	Text = lesson.titreLecon;
-	ValidExos = 0;
-	pgb.Step = 100 / Exercises.Count;
-	UpdateProgress();
-	NextExercise();
-	exo.Location = new Point((Width - exo.Width) / 2, 100);
-	Controls.Add(exo);
+	if (Exercises.Count == 0) {
+		MessageBox.Show("La lecon ne contient aucun exercice !");
+		DialogResult = DialogResult.Cancel;
+		Close();
+	} else {
+		InitializeComponent();
+		Text = lesson.titreLecon;
+		pgb.Step = 100 / Exercises.Count;
+		LoadExercise();
+	}
 }
 #endregion
 #region Méthodes
 private void
+LoadExercise()
+{
+	if (Exercises.Count > 0) {
+		exo = Exercise.GetExercice(Exercises.Dequeue());
+		exo.Location = new Point((Width - exo.Width) / 2, 100);
+		Controls.Add(exo);
+	}
+		
+}
+
+private void
 NextExercise()
 {
 	Controls.Remove(exo);
-	if (Exercises.Count > 0)
-		exo = Exercise.GetExercice(Exercises.Dequeue());
-	else {
+	if (Exercises.Count > 0) {
+		LoadExercise();
+	} else {
 		MessageBox.Show("Récapitulatif");
 		Close();
 	}
-	exo.Location = new Point((Width - exo.Width) / 2, 100);
-	Controls.Add(exo);
 }
 
 public void
@@ -191,6 +212,8 @@ public void
 Continue(object sender, EventArgs e)
 {
 	btnContinue.Visible = false;
+	btnSkip.Visible = true;
+	lblSolutionHeader.Visible = false;
 	pnlFooter.BackColor = Color.Transparent;
 	pnlFooter.ForeColor = Color.FromArgb(60, 60, 60);
 	NextExercise();
@@ -211,6 +234,8 @@ Fail()
 	btnContinue.BackColor = pnlFooter.ForeColor = Color.FromArgb(234, 43, 43);
 	btnContinue.Visible = true;
 	btnContinue.BringToFront();
+	btnSkip.Visible = false;
+	lblSolutionHeader.Visible = true;
 }
 
 public void
