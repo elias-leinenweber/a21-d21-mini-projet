@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 
 using static TorreDeBabel.baseLangueDataSet;
@@ -10,7 +11,8 @@ exoMissingWords(ExercicesRow data) : base(data)
 {
 	PhrasesRow sentence = (PhrasesRow)Phrases.Select("codePhrase = '" + data.codePhrase + "'")[0];
 	lblSentence.Text = sentence.traducPhrase;
-	CreateChallenge(sentence.textePhrase, data.listeMots);
+	_solution = sentence.textePhrase;
+	CreateChallenge(_solution, data.listeMots);
 }
 
 private void
@@ -43,9 +45,21 @@ IsValid()
 
 	userInputs = flpChallenge.Controls.OfType<TextBox>().ToArray();
 	foreach (TextBox input in userInputs)
-		if (input.Text != (string)input.Tag)
+		if (Normalize(input.Text) != Normalize((string)input.Tag))
 			return false;
 	return true;
+}
+
+private static string
+Normalize(string input)
+{
+	return new string(input
+	    .ToLowerInvariant()
+	    .Normalize(System.Text.NormalizationForm.FormD)
+	    .ToCharArray()
+	    .Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+	    .ToArray()
+	);
 }
 }
 }

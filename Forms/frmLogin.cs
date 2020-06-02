@@ -21,12 +21,12 @@ Dispose(bool disposing)
 private void
 InitializeComponent()
 {
-	components = new System.ComponentModel.Container();
-	AutoScaleMode = AutoScaleMode.Font;
-	ClientSize = new Size(320, 48);
-	Text = "frmLogin";
-	Font = Properties.Settings.Default.DisplayFont;
-	StartPosition = FormStartPosition.CenterParent;
+	components	= new System.ComponentModel.Container();
+	AutoScaleMode	= AutoScaleMode.Font;
+	ClientSize	= new Size(320, 48);
+	Font		= Properties.Settings.Default.DisplayFont;
+	StartPosition	= FormStartPosition.CenterParent;
+	FormBorderStyle	= FormBorderStyle.None;
 
 	cboUsers = new ComboBox() {
 		Name		= "cboUsers",

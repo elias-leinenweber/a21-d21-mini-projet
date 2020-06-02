@@ -28,9 +28,8 @@ InitializeComponent()
 	components = new System.ComponentModel.Container();
 	SuspendLayout();
 
-	Name		= "frmLecon";
+	Name		= "frmLesson";
 	Font		= Properties.Settings.Default.DisplayFont;
-	AutoScaleMode	= AutoScaleMode.Font;
 	ClientSize	= new Size(1080, 690);
 	BackColor	= Color.White;
 	ForeColor	= Color.FromArgb(60, 60, 60);
@@ -107,6 +106,17 @@ InitializeComponent()
 	};
 	pnlFooter.Controls.Add(lblSolutionHeader);
 
+	lblSolutionContent = new Label() {
+		Name		= "lblSolutionContent",
+		Top		= lblSolutionHeader.Top + lblSolutionHeader.Height,
+		Left		= lblSolutionHeader.Left,
+		AutoSize	= true,
+		Font		= new Font(Font.FontFamily, 17, GraphicsUnit.Pixel),
+		ForeColor	= Color.FromArgb(234, 43, 43),
+		Visible		= false
+	};
+	pnlFooter.Controls.Add(lblSolutionContent);
+
 	Controls.Add(btnReturn);
 	Controls.Add(pgb);
 	Controls.Add(pnlFooter);
@@ -127,7 +137,14 @@ private Label		lblSolutionContent;
 #region Champs
 private static ExercicesTableAdapter	eta = new ExercicesTableAdapter();
 private static ExercicesDataTable	edt = new ExercicesDataTable();
+
+private static Color	CorrectBack	= Color.FromArgb(184, 242, 139);
+private static Color	CorrectFore	= Color.FromArgb(88, 167, 0);
+private static Color	ErrorBack	= Color.FromArgb(255, 193, 193);
+private static Color	ErrorFore	= Color.FromArgb(234, 43, 43);
+
 private Queue<ExercicesRow>	Exercises;
+private uint			Mistakes;
 #endregion
 #region Constructeurs
 public
@@ -150,6 +167,7 @@ frmLesson(LeconsRow lesson)
 		pgb.Step = 100 / Exercises.Count;
 		LoadExercise();
 	}
+	Mistakes = 0;
 }
 #endregion
 #region Méthodes
@@ -160,7 +178,8 @@ LoadExercise()
 		exo = Exercise.GetExercice(Exercises.Dequeue());
 		exo.Location = new Point((Width - exo.Width) / 2, 100);
 		Controls.Add(exo);
-	}
+	} else
+		Recap();
 		
 }
 
@@ -168,12 +187,7 @@ private void
 NextExercise()
 {
 	Controls.Remove(exo);
-	if (Exercises.Count > 0) {
-		LoadExercise();
-	} else {
-		MessageBox.Show("Récapitulatif");
-		Close();
-	}
+	LoadExercise();
 }
 
 public void
@@ -194,12 +208,18 @@ Skip(object sender, EventArgs e)
 }
 
 public void
+ValidateExercise()
+{
+	
+}
+
+public void
 Check(object sender, EventArgs e)
 {
 	if (exo.IsValid()) {
 		pgb.PerformStep();
-		pnlFooter.BackColor = Color.FromArgb(184, 242, 139);
-		btnContinue.BackColor = pnlFooter.ForeColor = Color.FromArgb(88, 167, 0);
+		pnlFooter.BackColor = CorrectBack;
+		btnContinue.BackColor = pnlFooter.ForeColor = CorrectFore;
 		exo.Freeze();
 	} else
 		Fail();
@@ -214,6 +234,7 @@ Continue(object sender, EventArgs e)
 	btnContinue.Visible = false;
 	btnSkip.Visible = true;
 	lblSolutionHeader.Visible = false;
+	lblSolutionContent.Visible = false;
 	pnlFooter.BackColor = Color.Transparent;
 	pnlFooter.ForeColor = Color.FromArgb(60, 60, 60);
 	NextExercise();
@@ -228,14 +249,26 @@ UpdateProgress()
 private void
 Fail()
 {
+	++Mistakes;
 	exo.Freeze();
 	Exercises.Enqueue(exo.data);
-	pnlFooter.BackColor = Color.FromArgb(255, 193, 193);
-	btnContinue.BackColor = pnlFooter.ForeColor = Color.FromArgb(234, 43, 43);
+	pnlFooter.BackColor = ErrorBack;
+	btnContinue.BackColor = pnlFooter.ForeColor = ErrorFore;
 	btnContinue.Visible = true;
 	btnContinue.BringToFront();
 	btnSkip.Visible = false;
 	lblSolutionHeader.Visible = true;
+	if (exo is exoSentence)
+		lblSolutionContent.Text = ((exoSentence)exo).Solution;
+	lblSolutionContent.Visible = true;
+}
+
+private void
+Recap()
+{
+	MessageBox.Show("Récapitulatif : " + Mistakes + " fautes.");
+	DialogResult = DialogResult.OK;
+	Close();
 }
 
 public void

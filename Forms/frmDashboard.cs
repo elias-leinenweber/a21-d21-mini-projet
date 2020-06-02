@@ -262,13 +262,16 @@ StartLesson(object sender, EventArgs e)
 	if (dbo.GetType() == typeof(LeconsRow)) {
 		using (frmLesson modal = new frmLesson((LeconsRow)dbo)) {
 			modal.ShowDialog();
-			if (modal.DialogResult == DialogResult.OK)
-				++user.codeLeçon;
-			/*else if (modal.DialogResult == DialogResult.Cancel)
-				user.codeExo = modal.LastExercise;*/
+			if (modal.DialogResult == DialogResult.OK) {
+				MessageBox.Show("je vais incrémenter codeLecon " + user.codeLeçon + "->" + (user.codeLeçon+1));
+				++((UtilisateursRow)TorreDeBabel.tblUsers.Select("codeUtil = '" + user.codeUtil+ "'")[0]).codeLeçon;
+			}
+			//else if (modal.DialogResult == DialogResult.Cancel)	// TODO gérer revenir au
+			//	user.codeExo = modal.LastExercise;		// dernier exo
 		}
 	}
-	//ta.Update(user);
+	MessageBox.Show("je vais update la base");
+	uta.Update(TorreDeBabel.tblUsers);
 }
 #endregion
 }

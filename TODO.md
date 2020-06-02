@@ -11,7 +11,6 @@
 - terminer menu (mode admin, déconnecter, réinitialiser progrès..)
 
 # frmLecon
-- terminer squelette interface
 - verrouiller btnNext tq user a pas interagi
 
 # Ergonomie

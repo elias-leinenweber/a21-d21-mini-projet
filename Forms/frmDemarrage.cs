@@ -63,7 +63,7 @@ InitializeComponent()
 		Top		= btnRegister.Top + btnRegister.Height + 14,
 		Left		= btnRegister.Left,
 		Text		= "Connexion",
-		BackColor	= Color.Transparent,
+		BackColor	= Color.FromArgb(35, 83, 144),
 		ForeColor	= Color.White
 	};
 	btnLogin.Click += new EventHandler(Login);

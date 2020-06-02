@@ -34,7 +34,7 @@ InitializeComponent()
 	rowHeader = new RowStyle(SizeType.Absolute, 40F);
 	RowStyles.Add(rowHeader);
 
-	rowSentence = new RowStyle(SizeType.Absolute, 60F);
+	rowSentence = new RowStyle(SizeType.AutoSize);
 	RowStyles.Add(rowSentence);
 
 	rowChallenge = new RowStyle(SizeType.Absolute, 300F);
@@ -50,9 +50,11 @@ InitializeComponent()
 
 	lblSentence = new Label() {
 		Name		= "lblSentence",
-		AutoSize	= true
+		AutoSize	= true,
 	};
-	lblSentence.Height += 24;
+	lblSentence.Margin = new Padding(lblSentence.Margin.Left,
+	    lblSentence.Margin.Top + 24, lblSentence.Margin.Right,
+	    lblSentence.Margin.Bottom + 24);
 	Controls.Add(lblSentence, 0, 1);
 
 	flpChallenge = new FlowLayoutPanel() {

@@ -9,7 +9,6 @@ namespace TorreDeBabel {
 class exoPhraseDesordre : exoSentence {
 private FlowLayoutPanel	flpSentence;
 private static Random	rnd = new Random();
-private string		Answer;
 
 internal
 exoPhraseDesordre(ExercicesRow data) : base(data)
@@ -22,7 +21,8 @@ exoPhraseDesordre(ExercicesRow data) : base(data)
 		//AutoSize	= true
 	};
 	flpChallenge.Controls.Add(flpSentence);
-	CreateChallenge(sentence.textePhrase);
+	_solution = sentence.textePhrase;
+	CreateChallenge(_solution);
 }
 
 private void
@@ -45,7 +45,6 @@ CreateChallenge(string sentence)
 		lblWord.Click += new EventHandler(ToggleWord);
 		flpChallenge.Controls.Add(lblWord);
 	}
-	Answer = sentence;
 }
 
 public void
@@ -68,7 +67,7 @@ IsValid()
 	return string.Join(" ",
 	    flpSentence.Controls.OfType<Label>()	// pour tous les Label
 	    .Select(lbl => lbl.Text)			// 
-	    .ToArray()) == Answer;
+	    .ToArray()) == _solution;
 }
 }
 }
