@@ -54,6 +54,7 @@ private static string
 Normalize(string input)
 {
 	return new string(input
+	    .Trim()
 	    .ToLowerInvariant()
 	    .Normalize(System.Text.NormalizationForm.FormD)
 	    .ToCharArray()

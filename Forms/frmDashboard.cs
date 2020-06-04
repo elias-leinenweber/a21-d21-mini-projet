@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
  
@@ -272,7 +274,33 @@ StartLesson(object sender, EventArgs e)
 		}
 	}
 	MessageBox.Show("je vais update la base");
-	uta.Update(TorreDeBabel.tblUsers);
+	UpdateUserProgress(user);
+	//uta.Update(TorreDeBabel.tblUsers);
+}
+
+private static void
+UpdateUserProgress(UtilisateursRow user)
+{
+	using (OleDbConnection connection = new OleDbConnection(Properties.Settings.Default.baseLangueConnectionString)) {
+		OleDbCommand command	= new OleDbCommand();
+
+		command.CommandType	= CommandType.Text;
+		command.CommandText	= "UPDATE Utilisateurs SET codeExo = @exercise, codeLeçon = @lesson, codeCours = @course WHERE [codeUtil] = @id";
+		command.Parameters.AddWithValue("@exercise",	user.codeExo);
+		command.Parameters.AddWithValue("@lesson",	user.codeLeçon);
+		command.Parameters.AddWithValue("@course",	user.codeCours);
+		command.Parameters.AddWithValue("@id",		user.codeUtil);
+
+		command.Connection = connection;
+		connection.Open();
+
+		if (command.ExecuteNonQuery() == 1)
+			MessageBox.Show("Success");
+		else
+			throw new Exception("il y a un couac");
+
+		connection.Close();
+	}
 }
 #endregion
 }
