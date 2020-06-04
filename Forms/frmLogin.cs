@@ -26,6 +26,7 @@ InitializeComponent()
 	BackColor	= Color.White;
 	ClientSize	= new Size(600, 238);
 	Font		= Properties.Settings.Default.DisplayFont;
+	FormBorderStyle	= FormBorderStyle.FixedSingle;
 	MaximizeBox	= false;
 	MinimizeBox	= false;
 	ShowIcon	= false;
@@ -65,6 +66,7 @@ InitializeComponent()
 	Controls.Add(lblLogin);
 	Controls.Add(cboUsers);
 	Controls.Add(btnOK);
+	Move += new EventHandler(PreventMove);
 }
 
 private Label		lblLogin;
@@ -108,6 +110,12 @@ private void
 Return(object sender, EventArgs e)
 {
 	Close();
+}
+
+private void
+PreventMove(object sender, EventArgs e)
+{
+	CenterToParent();
 }
 #endregion
 }
