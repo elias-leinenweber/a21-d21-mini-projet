@@ -35,6 +35,7 @@ Dispose(bool disposing)
 private void
 InitializeComponent()
 {
+	StartPosition	= FormStartPosition.CenterScreen;
 			this.mnuMain = new System.Windows.Forms.MenuStrip();
 			this.mniUser = new System.Windows.Forms.ToolStripMenuItem();
 			this.déconnecterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();

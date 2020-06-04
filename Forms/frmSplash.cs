@@ -5,12 +5,9 @@ using System.Windows.Forms;
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
-public class frmDemarrage : Form {
+public class frmSplash : Form {
 #region Designer
 private System.ComponentModel.IContainer components = null;
-private Label	lblLogo;
-private Button	btnRegister;
-private Button	btnLogin;
 
 protected override void
 Dispose(bool disposing)
@@ -51,9 +48,11 @@ InitializeComponent()
 		Size		= new Size(320, 48),
 		Top		= (ClientSize.Height - 110) / 2,
 		Left		= (ClientSize.Width - 320) / 2,
-		Text		= "S'inscrire",
+		Text		= "S'INSCRIRE",
 		BackColor	= Color.FromArgb(88, 167, 0),
-		ForeColor	= Color.White
+		ForeColor	= Color.White,
+		Font		= new Font(Font.FontFamily, 15, FontStyle.Bold, GraphicsUnit.Pixel),
+		Enabled		= false
 	};
 	btnRegister.Click += new EventHandler(Register);
 
@@ -62,7 +61,8 @@ InitializeComponent()
 		Size		= new Size(320, 48),
 		Top		= btnRegister.Top + btnRegister.Height + 14,
 		Left		= btnRegister.Left,
-		Text		= "Connexion",
+		Text		= "CONNEXION",
+		Font		= new Font(Font.FontFamily, 15, FontStyle.Bold, GraphicsUnit.Pixel),
 		BackColor	= Color.FromArgb(35, 83, 144),
 		ForeColor	= Color.White
 	};
@@ -74,10 +74,14 @@ InitializeComponent()
 
 	ResumeLayout(false);
 }
+
+private Label	lblLogo;
+private Button	btnRegister;
+private Button	btnLogin;
 #endregion
 #region Constructeurs
-public
-frmDemarrage()
+internal
+frmSplash()
 {
 	InitializeComponent();
 }
@@ -86,18 +90,24 @@ frmDemarrage()
 private void
 Register(object sender, EventArgs e)
 {
+	throw new NotImplementedException();
+	/*
 	using (frmRegister modal = new frmRegister())
 		if (modal.ShowDialog() == DialogResult.OK)
 			OpenDashboard(modal.CreatedUser);
-		
+	*/
 }
 
 private void
 Login(object sender, EventArgs e)
 {
+	Enabled = false;
+	Opacity = 0.65;
 	using (frmLogin modal = new frmLogin())
 		if (modal.ShowDialog() == DialogResult.OK)
 			OpenDashboard(modal.SelectedUser);
+	Opacity = 1;
+	Enabled = true;
 }
 
 private void

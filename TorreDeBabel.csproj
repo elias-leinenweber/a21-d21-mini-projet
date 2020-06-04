@@ -95,16 +95,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>baseLangueDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmDemarrage.cs">
+    <Compile Include="Forms\frmSplash.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmLesson.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmLogin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmRegister.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmDashboard.cs">

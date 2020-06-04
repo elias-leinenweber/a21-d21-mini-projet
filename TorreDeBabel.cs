@@ -20,7 +20,7 @@ Main()
 	try {
 		adpUsers.Fill(tblUsers);
 		Application.EnableVisualStyles();
-		Application.Run(new frmDemarrage());
+		Application.Run(new frmSplash());
 	} catch (Exception e) {
 		MessageBox.Show(e.Message, e.GetType().Name,
 		    MessageBoxButtons.OK, MessageBoxIcon.Error);
