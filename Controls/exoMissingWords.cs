@@ -59,6 +59,7 @@ Normalize(string input)
 	    .Normalize(System.Text.NormalizationForm.FormD)
 	    .ToCharArray()
 	    .Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+	    // TODO Supprimer ponctuation
 	    .ToArray()
 	);
 }
