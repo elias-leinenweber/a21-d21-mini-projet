@@ -38,7 +38,7 @@ InitializeComponent()
 		Name		= "lblLogin",
 		Text		= "Se connecter",
 		Location	= new Point(40, 30),
-		Size		= new Size(Width - 2 * 40, 40),
+		Size		= new Size(ClientSize.Width - 2 * 40, 40),
 		Font		= new Font(Font.FontFamily, 26, FontStyle.Bold, GraphicsUnit.Pixel)
 	};
 

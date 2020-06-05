@@ -30,7 +30,7 @@ exoVocab(ExercicesRow data) : base(data)
 	).Select(cm => tblWords[((ConcerneMotsRow)cm).numMot]).ToArray();
 	foreach (MotsRow word in words) {
 		card = new VocabCard(word);
-		card.MouseHover += new EventHandler(CallUpdateStatus);
+		card.CellPaint += new TableLayoutCellPaintEventHandler(CallUpdateStatus);
 		flpChallenge.Controls.Add(card);
 	}
 

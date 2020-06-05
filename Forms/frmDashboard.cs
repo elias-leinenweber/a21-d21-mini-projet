@@ -263,12 +263,16 @@ StartLesson(object sender, EventArgs e)
 	object dbo = ((DataNode)treeView1.SelectedNode).DataBoundObject;
 
 	if (dbo.GetType() == typeof(LeconsRow)) {
-		using (frmLesson modal = new frmLesson((LeconsRow)dbo)) {
+		LeconsRow lesson = (LeconsRow)dbo;
+		using (frmLesson modal = new frmLesson(lesson)) {
 			modal.ShowDialog();
 			if (modal.DialogResult == DialogResult.OK) {
-				MessageBox.Show("je vais incrémenter codeLecon " + user.codeLeçon + "->" + (user.codeLeçon+1));
-				++user.codeLeçon;
-				user.codeExo = 0;
+				user.BeginEdit();
+				user.codeCours	= lesson.numCours;
+				user.codeLeçon	= lesson.numLecon + 1;
+				user.codeExo	= 0;
+				user.AcceptChanges();
+				MessageBox.Show(user.nomUtil + " " + user.codeExo + " " + user.codeLeçon + " " + user.codeCours);
 			}
 			//else if (modal.DialogResult == DialogResult.Cancel)	// TODO gérer revenir au
 			//	user.codeExo = modal.LastExercise;		// dernier exo
@@ -283,22 +287,36 @@ private static void
 UpdateUserProgress(UtilisateursRow user)
 {
 	using (OleDbConnection connection = new OleDbConnection(Properties.Settings.Default.baseLangueConnectionString)) {
-		OleDbCommand command = new OleDbCommand();
-
-		command.CommandType = CommandType.Text;
-		command.CommandText = "UPDATE Utilisateurs SET codeExo = @exercise, codeLeçon = @lesson, codeCours = @course WHERE [codeUtil] = @id";
-		command.Parameters.AddWithValue("@exercise", user.codeExo);
-		command.Parameters.AddWithValue("@lesson", user.codeLeçon);
-		command.Parameters.AddWithValue("@course", user.codeCours);
-		command.Parameters.AddWithValue("@id", user.codeUtil);
-
-		command.Connection = connection;
 		connection.Open();
 
-		if (command.ExecuteNonQuery() != 1)
-			throw new Exception("il y a un couac");
+		OleDbCommand command = connection.CreateCommand();
+		OleDbTransaction transaction;
 
-		connection.Close();
+		// Démarre la transaction (en local).
+		transaction = connection.BeginTransaction(IsolationLevel.Chaos);
+
+		command.Connection = connection;
+		command.Transaction = transaction;
+
+		try {
+			command.CommandText =
+			    "UPDATE Utilisateurs" +
+			    "SET [codeExo] = @exercise, [codeLeçon] = @lesson, [codeCours] = @course" +
+			    "WHERE [codeUtil] = @id";
+			command.Parameters.AddWithValue("@exercise", user.codeExo);
+			command.Parameters.AddWithValue("@lesson", user.codeLeçon);
+			command.Parameters.AddWithValue("@course", user.codeCours);
+			command.Parameters.AddWithValue("@id", user.codeUtil);
+			if (command.ExecuteNonQuery() != 1)
+				throw new Exception("Y a un \"couac\"");
+
+			// Essaie de commit la transaction.
+			transaction.Commit();
+		} catch (Exception) {
+			transaction.Rollback();
+		} finally {
+			connection.Close();
+		}
 	}
 }
 #endregion
