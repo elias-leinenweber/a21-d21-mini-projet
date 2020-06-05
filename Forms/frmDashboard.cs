@@ -271,11 +271,11 @@ StartLesson(object sender, EventArgs e)
 			}
 			//else if (modal.DialogResult == DialogResult.Cancel)	// TODO gérer revenir au
 			//	user.codeExo = modal.LastExercise;		// dernier exo
+			MessageBox.Show("je vais update la base");
+			UpdateUserProgress(user);
+			//uta.Update(TorreDeBabel.tblUsers);
 		}
 	}
-	MessageBox.Show("je vais update la base");
-	UpdateUserProgress(user);
-	//uta.Update(TorreDeBabel.tblUsers);
 }
 
 private static void
@@ -294,9 +294,7 @@ UpdateUserProgress(UtilisateursRow user)
 		command.Connection = connection;
 		connection.Open();
 
-		if (command.ExecuteNonQuery() == 1)
-			MessageBox.Show("Success");
-		else
+		if (command.ExecuteNonQuery() != 1)
 			throw new Exception("il y a un couac");
 
 		connection.Close();

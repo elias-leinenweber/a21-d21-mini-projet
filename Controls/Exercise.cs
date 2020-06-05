@@ -31,20 +31,21 @@ InitializeComponent()
 
 	ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
 	
-	rowHeader = new RowStyle(SizeType.Absolute, 40F);
+	rowHeader = new RowStyle(SizeType.AutoSize);
 	RowStyles.Add(rowHeader);
 
 	rowSentence = new RowStyle(SizeType.AutoSize);
 	RowStyles.Add(rowSentence);
 
-	rowChallenge = new RowStyle(SizeType.Absolute, 300F);
+	rowChallenge = new RowStyle(SizeType.AutoSize);
 	RowStyles.Add(rowChallenge);
 
 	lblHeader = new Label() {
 		Name		= "lblHeader",
 		AutoSize	= true,
 		Font		= new Font(Font.FontFamily, 32, FontStyle.Bold,
-					   GraphicsUnit.Pixel)
+					   GraphicsUnit.Pixel),
+		MaximumSize	= new Size(Width, 0)
 	};
 	Controls.Add(lblHeader, 0, 0);
 
@@ -85,11 +86,12 @@ Exercise(ExercicesRow data)
 }
 
 public static Exercise
-GetExercice(ExercicesRow data)
+GetExercise(ExercicesRow data)
 {
 	Exercise res;
 
-	if (data.codePhrase == 0)
+	if ((data.IscodePhraseNull() || data.codePhrase == 0) &&
+	    (data.IscodeVerbeNull() || data.codeVerbe == 0))
 	// TODO
 	// Les exos de vocabulaire, sont des exos pour lesquels il n'y a pas de
 	// phrase, ni de n° de verbe et par contre des lignes resultant d'une jointure

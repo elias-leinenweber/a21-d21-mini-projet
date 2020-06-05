@@ -29,7 +29,6 @@ exoVocab(ExercicesRow data) : base(data)
 	foreach (MotsRow word in words)
 		flpChallenge.Controls.Add(new VocabCard(word));
 
-	MessageBox.Show(string.Join(",", words.Select(w => w.numMot)));
 	Width			= (words.Length > 0) ? words.Length * (flpChallenge.Controls[0].Width + 20) : 0;
 	rowSentence.Height	= 0;
 }

@@ -22,6 +22,7 @@ InitializeComponent()
 	SuspendLayout();
 
 	Size		= new Size(200, 300);
+	BorderStyle	= BorderStyle.Fixed3D;
 	ColumnCount	= 1;
 	RowCount	= 3;
 
@@ -29,8 +30,9 @@ InitializeComponent()
 	RowStyles.Add(rowImage);
 
 	pcbImage = new PictureBox() {
-		Name	= "pcbImage",
-		Size	= new Size(200, 200)
+		Name		= "pcbImage",
+		Size		= new Size(200, 200),
+		SizeMode	= PictureBoxSizeMode.Zoom
 	};
 	Controls.Add(pcbImage, 0, 0);
 
@@ -72,8 +74,8 @@ VocabCard(MotsRow word)
 		pcbImage.Image = (Bitmap)Properties.Resources.ResourceManager
 		    .GetObject(word.cheminPhoto.Remove(word.cheminPhoto.IndexOf('.')));
 
-	lblCaption.Text = word.libMot;
-	lblRegion.Text = word.origine;
+	lblCaption.Text = word.libMot + " (" + word.origine + ")";
+	//lblRegion.Text = word.origine;
 }
 }
 }

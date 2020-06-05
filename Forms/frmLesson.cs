@@ -175,7 +175,7 @@ private void
 LoadExercise()
 {
 	if (Exercises.Count > 0) {
-		exo = Exercise.GetExercice(Exercises.Dequeue());
+		exo = Exercise.GetExercise(Exercises.Dequeue());
 		exo.Location = new Point((Width - exo.Width) / 2, 100);
 		Controls.Add(exo);
 	} else
