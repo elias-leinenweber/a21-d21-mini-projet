@@ -20,6 +20,8 @@ exoPhraseDesordre(ExercicesRow data) : base(data)
 		Width		= flpChallenge.Width,
 		//AutoSize	= true
 	};
+	flpSentence.ControlAdded += new ControlEventHandler(CallUpdateStatus);
+	flpSentence.ControlRemoved += new ControlEventHandler(CallUpdateStatus);
 	flpChallenge.Controls.Add(flpSentence);
 	_solution = sentence.textePhrase;
 	CreateChallenge(_solution);
@@ -59,6 +61,12 @@ ToggleWord(object sender, EventArgs e)
 		flpSentence.Controls.Remove(word);
 		flpChallenge.Controls.Add(word);
 	}
+}
+
+protected override bool
+GetUserInputStatus()
+{
+	return flpSentence.Controls.Count > 0;
 }
 
 public override bool

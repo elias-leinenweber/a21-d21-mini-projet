@@ -69,6 +69,7 @@ InitializeComponent()
 		Size		= new Size(150, 50),
 		Left		= 40,
 		Top		= 45,
+		Font		= new Font(Font.FontFamily, 17, FontStyle.Bold, GraphicsUnit.Pixel)
 	};
 	btnSkip.Click += new EventHandler(Skip);
 	pnlFooter.Controls.Add(btnSkip);
@@ -79,7 +80,8 @@ InitializeComponent()
 		Size		= new Size(150, 50),
 		Top		= 45,
 		Left		= Width - 190,
-		//Enabled		= false
+		Font		= new Font(Font.FontFamily, 17, FontStyle.Bold, GraphicsUnit.Pixel),
+		Enabled		= false
 	};
 	btnCheck.Click += new EventHandler(Check);
 	pnlFooter.Controls.Add(btnCheck);
@@ -90,6 +92,7 @@ InitializeComponent()
 		Size		= btnCheck.Size,
 		Location	= btnCheck.Location,
 		ForeColor	= Color.White,
+		Font		= new Font(Font.FontFamily, 17, FontStyle.Bold, GraphicsUnit.Pixel),
 		Visible		= false
 	};
 	btnContinue.Click += new EventHandler(Continue);
@@ -177,10 +180,22 @@ LoadExercise()
 	if (Exercises.Count > 0) {
 		exo = Exercise.GetExercise(Exercises.Dequeue());
 		exo.Location = new Point((Width - exo.Width) / 2, 100);
+		exo.OnUserInput += new Exercise.UserInputHandler(UserInput);
 		Controls.Add(exo);
 	} else
 		Recap();
 		
+}
+
+private void
+UserInput(object sender, UserInputEventArgs e)
+{
+	if (e.Status) {
+		btnCheck.BackColor	= Color.FromArgb(88, 167, 0);
+		btnCheck.ForeColor	= Color.White;
+		btnCheck.Enabled	= true;
+	} else
+		ResetBtnCheck();
 }
 
 private void
@@ -204,39 +219,42 @@ Return(object sender, EventArgs e)
 public void
 Skip(object sender, EventArgs e)
 {
+	ValidateExercise();
 	Fail();
 }
 
 public void
 ValidateExercise()
 {
-	
-}
-
-public void
-Check(object sender, EventArgs e)
-{
-	if (exo.IsValid()) {
-		pgb.PerformStep();
-		pnlFooter.BackColor = CorrectBack;
-		btnContinue.BackColor = pnlFooter.ForeColor = CorrectFore;
-		exo.Freeze();
-	} else
-		Fail();
-	
+	exo.Freeze();
+	btnSkip.Visible = false;
 	btnContinue.Visible = true;
 	btnContinue.BringToFront();
 }
 
 public void
+Check(object sender, EventArgs e)
+{
+	ValidateExercise();
+	if (exo.IsValid())
+		Success();
+	else
+		Fail();
+}
+
+public void
 Continue(object sender, EventArgs e)
 {
-	btnContinue.Visible = false;
-	btnSkip.Visible = true;
-	lblSolutionHeader.Visible = false;
-	lblSolutionContent.Visible = false;
 	pnlFooter.BackColor = Color.Transparent;
 	pnlFooter.ForeColor = Color.FromArgb(60, 60, 60);
+
+	ResetBtnCheck();
+
+	btnSkip.Visible			= true;
+	btnContinue.Visible		= false;
+	lblSolutionHeader.Visible	= false;
+	lblSolutionContent.Visible	= false;
+
 	NextExercise();
 }
 
@@ -247,19 +265,34 @@ UpdateProgress()
 }
 
 private void
+ResetBtnCheck()
+{
+	btnCheck.BackColor	= Color.Transparent;
+	btnCheck.ForeColor	= Color.FromArgb(175, 175, 175);
+	btnCheck.Enabled	= false;
+}
+
+private void
+Success()
+{
+	pgb.PerformStep();
+
+	pnlFooter.BackColor = CorrectBack;
+	btnContinue.BackColor = pnlFooter.ForeColor = CorrectFore;
+}
+
+private void
 Fail()
 {
 	++Mistakes;
-	exo.Freeze();
 	Exercises.Enqueue(exo.data);
+
 	pnlFooter.BackColor = ErrorBack;
 	btnContinue.BackColor = pnlFooter.ForeColor = ErrorFore;
-	btnContinue.Visible = true;
-	btnContinue.BringToFront();
-	btnSkip.Visible = false;
+
 	lblSolutionHeader.Visible = true;
-	if (exo is exoSentence)
-		lblSolutionContent.Text = ((exoSentence)exo).Solution;
+	if (exo is exoSentence sentence)
+		lblSolutionContent.Text = sentence.Solution;
 	lblSolutionContent.Visible = true;
 }
 

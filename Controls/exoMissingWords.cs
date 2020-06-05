@@ -1,6 +1,8 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 using static TorreDeBabel.baseLangueDataSet;
 
@@ -27,15 +29,31 @@ CreateChallenge(string sentence, string wordList)
 	foreach (string word in wordList.Split('/'))
 		hide[int.Parse(word) - 1] = true;
 	for (int i = 0; i < words.Length; ++i) {
-		if (hide[i])
+		if (hide[i]) {
 			toAdd = new TextBox() {
 				Name	= "txt" + i,
 				Tag	= words[i]
 			};
+			toAdd.TextChanged += new EventHandler(CallUpdateStatus);
+		}
 		else
 			toAdd = new Label(){ Text = words[i], AutoSize = true };
 		flpChallenge.Controls.Add(toAdd);
 	}
+}
+
+protected override bool
+GetUserInputStatus()
+{
+	bool status = false;
+
+	foreach (TextBox textBox in flpChallenge.Controls.OfType<TextBox>())
+		if (!string.IsNullOrWhiteSpace(textBox.Text)) {
+			status = true;
+			break;
+		}
+
+	return status;
 }
 
 public override bool

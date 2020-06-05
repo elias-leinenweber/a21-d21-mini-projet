@@ -267,7 +267,8 @@ StartLesson(object sender, EventArgs e)
 			modal.ShowDialog();
 			if (modal.DialogResult == DialogResult.OK) {
 				MessageBox.Show("je vais incrémenter codeLecon " + user.codeLeçon + "->" + (user.codeLeçon+1));
-				++((UtilisateursRow)TorreDeBabel.tblUsers.Select("codeUtil = '" + user.codeUtil+ "'")[0]).codeLeçon;
+				++user.codeLeçon;
+				user.codeExo = 0;
 			}
 			//else if (modal.DialogResult == DialogResult.Cancel)	// TODO gérer revenir au
 			//	user.codeExo = modal.LastExercise;		// dernier exo
@@ -282,14 +283,14 @@ private static void
 UpdateUserProgress(UtilisateursRow user)
 {
 	using (OleDbConnection connection = new OleDbConnection(Properties.Settings.Default.baseLangueConnectionString)) {
-		OleDbCommand command	= new OleDbCommand();
+		OleDbCommand command = new OleDbCommand();
 
-		command.CommandType	= CommandType.Text;
-		command.CommandText	= "UPDATE Utilisateurs SET codeExo = @exercise, codeLeçon = @lesson, codeCours = @course WHERE [codeUtil] = @id";
-		command.Parameters.AddWithValue("@exercise",	user.codeExo);
-		command.Parameters.AddWithValue("@lesson",	user.codeLeçon);
-		command.Parameters.AddWithValue("@course",	user.codeCours);
-		command.Parameters.AddWithValue("@id",		user.codeUtil);
+		command.CommandType = CommandType.Text;
+		command.CommandText = "UPDATE Utilisateurs SET codeExo = @exercise, codeLeçon = @lesson, codeCours = @course WHERE [codeUtil] = @id";
+		command.Parameters.AddWithValue("@exercise", user.codeExo);
+		command.Parameters.AddWithValue("@lesson", user.codeLeçon);
+		command.Parameters.AddWithValue("@course", user.codeCours);
+		command.Parameters.AddWithValue("@id", user.codeUtil);
 
 		command.Connection = connection;
 		connection.Open();

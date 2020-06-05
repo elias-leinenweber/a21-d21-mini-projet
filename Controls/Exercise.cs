@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 using TorreDeBabel.baseLangueDataSetTableAdapters;
@@ -76,6 +78,7 @@ protected FlowLayoutPanel	flpChallenge;
 #endregion
 #region Propriétés
 public readonly ExercicesRow data;
+public event UserInputHandler OnUserInput;
 #endregion
 protected
 Exercise(ExercicesRow data)
@@ -107,11 +110,36 @@ GetExercise(ExercicesRow data)
 public abstract bool
 IsValid();
 
+public delegate void UserInputHandler(object sender, UserInputEventArgs e);
+
+protected void
+UpdateStatus()
+{
+	if (OnUserInput == null)
+		return;
+	OnUserInput(this, new UserInputEventArgs(GetUserInputStatus()));
+}
+
+protected void
+CallUpdateStatus(object sender, EventArgs e)
+	=> UpdateStatus();
+
+protected abstract bool
+GetUserInputStatus();
+
 public void
 Freeze()
 {
 	foreach (Control control in flpChallenge.Controls)
 		control.Enabled = false;
 }
+}
+
+public class UserInputEventArgs : EventArgs {
+public bool Status { get; private set; }
+
+public
+UserInputEventArgs(bool status)
+	=> Status = status;
 }
 }

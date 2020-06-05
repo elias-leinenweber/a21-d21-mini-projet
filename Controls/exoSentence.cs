@@ -1,4 +1,6 @@
-﻿using TorreDeBabel.baseLangueDataSetTableAdapters;
+﻿using System;
+
+using TorreDeBabel.baseLangueDataSetTableAdapters;
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {

@@ -23,14 +23,25 @@ exoVocab()
 internal
 exoVocab(ExercicesRow data) : base(data)
 {
+	VocabCard card;
+
 	MotsRow[] words = tblRelatedWords.Select(
 	    "numCours = '" + data.numCours + "' AND numLecon = '" + data.numLecon + "' AND numExo = '" + data.numExo + "'"
 	).Select(cm => tblWords[((ConcerneMotsRow)cm).numMot]).ToArray();
-	foreach (MotsRow word in words)
-		flpChallenge.Controls.Add(new VocabCard(word));
+	foreach (MotsRow word in words) {
+		card = new VocabCard(word);
+		card.MouseHover += new EventHandler(CallUpdateStatus);
+		flpChallenge.Controls.Add(card);
+	}
 
 	Width			= (words.Length > 0) ? words.Length * (flpChallenge.Controls[0].Width + 20) : 0;
 	rowSentence.Height	= 0;
+}
+
+protected override bool
+GetUserInputStatus()
+{
+	return true;
 }
 
 public override bool
