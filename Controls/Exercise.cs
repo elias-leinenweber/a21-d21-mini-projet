@@ -83,9 +83,11 @@ public event UserInputHandler OnUserInput;
 protected
 Exercise(ExercicesRow data)
 {
+	UseWaitCursor = true;
 	this.data = data;
 	InitializeComponent();
 	lblHeader.Text = data.enonceExo;
+	UseWaitCursor = false;
 }
 
 public static Exercise

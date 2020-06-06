@@ -2,11 +2,13 @@
 using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
  
 using TorreDeBabel.baseLangueDataSetTableAdapters;
 using TorreDeBabel.Forms;
+using TorreDeBabel.Properties;
 
 using static TorreDeBabel.baseLangueDataSet;
 
@@ -14,26 +16,12 @@ namespace TorreDeBabel {
 class frmDashboard : Form {
 #region Designer
 private System.ComponentModel.IContainer components = null;
-		private ToolStripMenuItem mniUser;
-		private ToolStripMenuItem déconnecterToolStripMenuItem;
-		private SplitContainer splMain;
-		private TreeView treeView1;
-		private TableLayoutPanel tlpInfo;
-		private Label lblCourseTitle;
-		private Label lblCourseComment;
-		private Label lblLessonTitle;
-		private Label lblLessonComment;
-		private Button btnStartLesson;
-		private ToolStripMenuItem administrationToolStripMenuItem;
-		private MenuStrip mnuMain;
-
 
 protected override void
 Dispose(bool disposing)
 {
-	if (disposing && components != null) {
+	if (disposing && components != null)
 		components.Dispose();
-	}
 	base.Dispose(disposing);
 }
 
@@ -108,6 +96,7 @@ InitializeComponent()
 			this.treeView1.Name = "treeView1";
 			this.treeView1.Size = new System.Drawing.Size(259, 387);
 			this.treeView1.TabIndex = 0;
+			//treeView1.CheckBoxes = true;
 			this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
 			// 
 			// tlpInfo
@@ -207,6 +196,19 @@ InitializeComponent()
 			this.PerformLayout();
 
 }
+
+private ToolStripMenuItem	mniUser;
+private ToolStripMenuItem	déconnecterToolStripMenuItem;
+private SplitContainer		splMain;
+private TreeView		treeView1;
+private TableLayoutPanel	tlpInfo;
+private Label			lblCourseTitle;
+private Label			lblCourseComment;
+private Label			lblLessonTitle;
+private Label			lblLessonComment;
+private Button			btnStartLesson;
+private ToolStripMenuItem	administrationToolStripMenuItem;
+private MenuStrip		mnuMain;
 #endregion
 #region Champs
 private static UtilisateursTableAdapter uta = new UtilisateursTableAdapter();
@@ -219,6 +221,7 @@ frmDashboard(UtilisateursRow user)
 	this.user = user;
 	InitializeComponent();
 	FillTreeView(treeView1);
+	administrationToolStripMenuItem.Enabled = (((user.codeUtil & 4) >> 2) & (((user.codeUtil & 2) >> 1) ^ (user.codeUtil & 1))) == 1;
 }
 #endregion
 #region Méthodes
@@ -234,14 +237,29 @@ FillTreeView(TreeView tvw)
 		tvw.Nodes.Add(new DataNode(course.titreCours, ((LeconsRow[])tabLessons
 		    .Select("numCours = \'" + course.numCours + "\'"))
 		    .Select(lesson => new DataNode(lesson.titreLecon, lesson)).ToArray(),
-		    course)
+		    course){ ImageIndex = GetImageIndex(course.numCours.CompareTo(user.codeCours))}
 		);
+
+	tvw.ImageList = new ImageList();
+	tvw.ImageList.Images.AddRange(new Image[3] {Resources.empty, Resources.partial, Resources._checked} );
+	tvw.ImageIndex = 0;
+}
+
+private int
+GetImageIndex(int diff)
+{
+	if (diff > 0)
+		return 0;
+	else if (diff == 0)
+		return 1;
+	else
+		return 2;
 }
 
 private void
 treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
 {
-	object row = ((DataNode)e.Node).DataBoundObject;
+	object row = (e.Node as DataNode).DataBoundObject;
 	CoursRow course;
 
 	if (row.GetType() == typeof(CoursRow)) {
@@ -272,7 +290,7 @@ UpdateLessonInfo(string lessonTitle, string lessonComment)
 private void
 StartLesson(object sender, EventArgs e)
 {
-	object dbo = ((DataNode)treeView1.SelectedNode).DataBoundObject;
+	object dbo = (treeView1.SelectedNode as DataNode).DataBoundObject;
 
 	if (dbo.GetType() == typeof(LeconsRow)) {
 		LeconsRow lesson = (LeconsRow)dbo;
@@ -348,6 +366,7 @@ administrationToolStripMenuItem_Click(object sender, EventArgs e)
 class DataNode : TreeNode {
 #region Properties
 public object DataBoundObject { get; set; }
+
 #endregion
 #region Constructors
 public

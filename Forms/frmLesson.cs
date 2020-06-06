@@ -153,6 +153,7 @@ private Dictionary<int, string>	Mistakes;
 public
 frmLesson(LeconsRow lesson)
 {
+	UseWaitCursor = true;
 	eta.Fill(edt);
 	Exercises = new Queue<ExercicesRow>((ExercicesRow[])edt.Select(
 	   "numLecon = '" + lesson.numLecon +
@@ -171,6 +172,7 @@ frmLesson(LeconsRow lesson)
 		LoadExercise();
 	}
 	Mistakes = new Dictionary<int, string>();
+	UseWaitCursor = false;
 }
 #endregion
 #region Méthodes
@@ -285,7 +287,8 @@ Success()
 private void
 Fail()
 {
-	Mistakes.Add(exo.data.numExo, exo.data.enonceExo); // TODO user input
+	if (!Mistakes.ContainsKey(exo.data.numExo))
+		Mistakes.Add(exo.data.numExo, exo.data.enonceExo); // TODO user input
 	Exercises.Enqueue(exo.data);
 
 	pnlFooter.BackColor = ErrorBack;

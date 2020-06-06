@@ -145,6 +145,9 @@
     <Content Include="Data\baseLangue.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\partial.png" />
+    <None Include="Resources\empty.png" />
+    <None Include="Resources\checked.png" />
     <None Include="Resources\TowerOfBabel.jpg" />
     <None Include="Resources\voleur.png" />
     <None Include="Resources\voir.jpg" />

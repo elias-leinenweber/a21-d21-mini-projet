@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -104,8 +102,11 @@ private void InitializeComponent()
 	};
 	tlpMain.Controls.Add(lblExercises, 0, 5);
 	dgvExercises = new DataGridView() {
-		Name	= "dvgExercises",
-		Dock	= DockStyle.Fill
+		Name			= "dvgExercises",
+		Dock			= DockStyle.Fill,
+		AutoSizeColumnsMode	= DataGridViewAutoSizeColumnsMode.AllCells,
+		AutoSizeRowsMode	= DataGridViewAutoSizeRowsMode.AllCells,
+		ReadOnly		= true
 	};
 	dgvExercises.DataError += new DataGridViewDataErrorEventHandler(IgnoreDataError);
 	tlpMain.Controls.Add(dgvExercises, 0, 6);

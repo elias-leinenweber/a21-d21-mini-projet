@@ -63,6 +63,16 @@ namespace TorreDeBabel.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _checked {
+            get {
+                object obj = ResourceManager.GetObject("_checked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap aeroport {
             get {
                 object obj = ResourceManager.GetObject("aeroport", resourceCulture);
@@ -386,6 +396,16 @@ namespace TorreDeBabel.Properties {
         internal static System.Drawing.Bitmap dos {
             get {
                 object obj = ResourceManager.GetObject("dos", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap empty {
+            get {
+                object obj = ResourceManager.GetObject("empty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -756,6 +776,16 @@ namespace TorreDeBabel.Properties {
         internal static System.Drawing.Bitmap parasol {
             get {
                 object obj = ResourceManager.GetObject("parasol", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap partial {
+            get {
+                object obj = ResourceManager.GetObject("partial", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
