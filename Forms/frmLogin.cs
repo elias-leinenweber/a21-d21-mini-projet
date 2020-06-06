@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 
 using TorreDeBabel.baseLangueDataSetTableAdapters;
+
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {

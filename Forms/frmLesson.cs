@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 using TorreDeBabel.baseLangueDataSetTableAdapters;
+using TorreDeBabel.Properties;
 
 using static TorreDeBabel.baseLangueDataSet;
 
@@ -29,12 +28,13 @@ InitializeComponent()
 	SuspendLayout();
 
 	Name		= "frmLesson";
-	Font		= Properties.Settings.Default.DisplayFont;
+	Font		= Settings.Default.DisplayFont;
 	ClientSize	= new Size(1080, 690);
 	BackColor	= Color.White;
 	ForeColor	= Color.FromArgb(60, 60, 60);
 	ControlBox	= false;
 	FormBorderStyle	= FormBorderStyle.None;
+	Icon		= Resources.babel;
 	StartPosition	= FormStartPosition.CenterScreen;
 
 	btnReturn = new Button() {
@@ -69,7 +69,8 @@ InitializeComponent()
 		Size		= new Size(150, 50),
 		Left		= 40,
 		Top		= 45,
-		Font		= new Font(Font.FontFamily, 17, FontStyle.Bold, GraphicsUnit.Pixel)
+		Font		= new Font(Font.FontFamily, 17, FontStyle.Bold, GraphicsUnit.Pixel),
+		BackColor	= Color.White
 	};
 	btnSkip.Click += new EventHandler(Skip);
 	pnlFooter.Controls.Add(btnSkip);
@@ -81,6 +82,7 @@ InitializeComponent()
 		Top		= 45,
 		Left		= Width - 190,
 		Font		= new Font(Font.FontFamily, 17, FontStyle.Bold, GraphicsUnit.Pixel),
+		BackColor	= Color.Transparent,
 		Enabled		= false
 	};
 	btnCheck.Click += new EventHandler(Check);
@@ -187,7 +189,6 @@ LoadExercise()
 		Controls.Add(exo);
 	} else
 		Recap();
-		
 }
 
 private void
@@ -262,12 +263,6 @@ Continue(object sender, EventArgs e)
 }
 
 private void
-UpdateProgress()
-{
-	
-}
-
-private void
 ResetBtnCheck()
 {
 	btnCheck.BackColor	= Color.Transparent;
@@ -303,18 +298,12 @@ Fail()
 private void
 Recap()
 {
-	string message = "Récapitulatif : " + Mistakes.Count + " fautes :\n";
+	string message = "Récapitulatif : " + Mistakes.Count + " fautes.\n";
 	foreach (KeyValuePair<int, string> mistake in Mistakes)
-		message += string.Format("Exercice {0} : {1}\n", mistake.Key, mistake.Value);
+		message += string.Format(" - Exercice {0} : {1}\n", mistake.Key, mistake.Value);
 	MessageBox.Show(message);
 	DialogResult = DialogResult.OK;
 	Close();
-}
-
-public void
-SyncProgress()
-{
-	//
 }
 #endregion Méthodes
 }

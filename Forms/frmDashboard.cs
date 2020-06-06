@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.OleDb;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -30,7 +29,10 @@ InitializeComponent()
 {
 			this.mnuMain = new System.Windows.Forms.MenuStrip();
 			this.mniUser = new System.Windows.Forms.ToolStripMenuItem();
+			this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.déconnecterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.splMain = new System.Windows.Forms.SplitContainer();
 			this.treeView1 = new System.Windows.Forms.TreeView();
 			this.tlpInfo = new System.Windows.Forms.TableLayoutPanel();
@@ -39,7 +41,7 @@ InitializeComponent()
 			this.lblLessonTitle = new System.Windows.Forms.Label();
 			this.lblLessonComment = new System.Windows.Forms.Label();
 			this.btnStartLesson = new System.Windows.Forms.Button();
-			this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.usernameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splMain)).BeginInit();
 			this.splMain.Panel1.SuspendLayout();
@@ -54,23 +56,46 @@ InitializeComponent()
             this.mniUser});
 			this.mnuMain.Location = new System.Drawing.Point(0, 0);
 			this.mnuMain.Name = "mnuMain";
-			this.mnuMain.Size = new System.Drawing.Size(784, 24);
+			this.mnuMain.Size = new System.Drawing.Size(624, 24);
 			this.mnuMain.TabIndex = 0;
 			// 
 			// mniUser
 			// 
 			this.mniUser.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.usernameToolStripMenuItem,
+            this.administrationToolStripMenuItem,
+            this.toolStripSeparator1,
             this.déconnecterToolStripMenuItem,
-            this.administrationToolStripMenuItem});
+            this.quitterToolStripMenuItem});
 			this.mniUser.Name = "mniUser";
 			this.mniUser.Size = new System.Drawing.Size(72, 20);
 			this.mniUser.Text = "Utilisateur";
 			// 
+			// administrationToolStripMenuItem
+			// 
+			this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
+			this.administrationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.administrationToolStripMenuItem.Text = "Administration...";
+			this.administrationToolStripMenuItem.Click += new System.EventHandler(this.administrationToolStripMenuItem_Click);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(159, 6);
+			// 
 			// déconnecterToolStripMenuItem
 			// 
 			this.déconnecterToolStripMenuItem.Name = "déconnecterToolStripMenuItem";
-			this.déconnecterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.déconnecterToolStripMenuItem.Text = "Déconnecter";
+			this.déconnecterToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.déconnecterToolStripMenuItem.Text = "Se déconnecter";
+			this.déconnecterToolStripMenuItem.Click += new System.EventHandler(this.déconnecterToolStripMenuItem_Click);
+			// 
+			// quitterToolStripMenuItem
+			// 
+			this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
+			this.quitterToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.quitterToolStripMenuItem.Text = "Quitter";
+			this.quitterToolStripMenuItem.Click += new System.EventHandler(this.quitterToolStripMenuItem_Click);
 			// 
 			// splMain
 			// 
@@ -85,8 +110,8 @@ InitializeComponent()
 			// splMain.Panel2
 			// 
 			this.splMain.Panel2.Controls.Add(this.tlpInfo);
-			this.splMain.Size = new System.Drawing.Size(784, 387);
-			this.splMain.SplitterDistance = 259;
+			this.splMain.Size = new System.Drawing.Size(624, 417);
+			this.splMain.SplitterDistance = 240;
 			this.splMain.TabIndex = 1;
 			// 
 			// treeView1
@@ -94,9 +119,8 @@ InitializeComponent()
 			this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.treeView1.Location = new System.Drawing.Point(0, 0);
 			this.treeView1.Name = "treeView1";
-			this.treeView1.Size = new System.Drawing.Size(259, 387);
+			this.treeView1.Size = new System.Drawing.Size(240, 417);
 			this.treeView1.TabIndex = 0;
-			//treeView1.CheckBoxes = true;
 			this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
 			// 
 			// tlpInfo
@@ -118,7 +142,7 @@ InitializeComponent()
 			this.tlpInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
 			this.tlpInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
 			this.tlpInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tlpInfo.Size = new System.Drawing.Size(521, 387);
+			this.tlpInfo.Size = new System.Drawing.Size(380, 417);
 			this.tlpInfo.TabIndex = 0;
 			// 
 			// lblCourseTitle
@@ -133,7 +157,7 @@ InitializeComponent()
 			// lblCourseComment
 			// 
 			this.lblCourseComment.AutoSize = true;
-			this.lblCourseComment.Location = new System.Drawing.Point(3, 77);
+			this.lblCourseComment.Location = new System.Drawing.Point(3, 83);
 			this.lblCourseComment.Name = "lblCourseComment";
 			this.lblCourseComment.Size = new System.Drawing.Size(52, 21);
 			this.lblCourseComment.TabIndex = 1;
@@ -142,7 +166,7 @@ InitializeComponent()
 			// lblLessonTitle
 			// 
 			this.lblLessonTitle.AutoSize = true;
-			this.lblLessonTitle.Location = new System.Drawing.Point(3, 154);
+			this.lblLessonTitle.Location = new System.Drawing.Point(3, 166);
 			this.lblLessonTitle.Name = "lblLessonTitle";
 			this.lblLessonTitle.Size = new System.Drawing.Size(52, 21);
 			this.lblLessonTitle.TabIndex = 2;
@@ -151,7 +175,7 @@ InitializeComponent()
 			// lblLessonComment
 			// 
 			this.lblLessonComment.AutoSize = true;
-			this.lblLessonComment.Location = new System.Drawing.Point(3, 231);
+			this.lblLessonComment.Location = new System.Drawing.Point(3, 249);
 			this.lblLessonComment.Name = "lblLessonComment";
 			this.lblLessonComment.Size = new System.Drawing.Size(52, 21);
 			this.lblLessonComment.TabIndex = 3;
@@ -160,30 +184,33 @@ InitializeComponent()
 			// btnStartLesson
 			// 
 			this.btnStartLesson.AutoSize = true;
-			this.btnStartLesson.Location = new System.Drawing.Point(3, 311);
+			this.btnStartLesson.Location = new System.Drawing.Point(3, 335);
 			this.btnStartLesson.Name = "btnStartLesson";
 			this.btnStartLesson.Size = new System.Drawing.Size(162, 31);
 			this.btnStartLesson.TabIndex = 4;
-			this.btnStartLesson.Text = "Commencer la lecon";
+			this.btnStartLesson.Text = "Commencer la leçon";
 			this.btnStartLesson.UseVisualStyleBackColor = true;
 			this.btnStartLesson.Click += new System.EventHandler(this.StartLesson);
 			// 
-			// administrationToolStripMenuItem
+			// usernameToolStripMenuItem
 			// 
-			this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
-			this.administrationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.administrationToolStripMenuItem.Text = "Administration";
-			this.administrationToolStripMenuItem.Click += new System.EventHandler(this.administrationToolStripMenuItem_Click);
+			this.usernameToolStripMenuItem.Name = "usernameToolStripMenuItem";
+			this.usernameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.usernameToolStripMenuItem.Text = "username";
 			// 
 			// frmDashboard
 			// 
-			this.ClientSize = new System.Drawing.Size(784, 411);
+			this.ClientSize = new System.Drawing.Size(624, 441);
 			this.Controls.Add(this.splMain);
 			this.Controls.Add(this.mnuMain);
 			this.Font = global::TorreDeBabel.Properties.Settings.Default.DisplayFont;
+			this.Icon = global::TorreDeBabel.Properties.Resources.babel;
 			this.MainMenuStrip = this.mnuMain;
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
 			this.Name = "frmDashboard";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "Tableau de bord";
 			this.mnuMain.ResumeLayout(false);
 			this.mnuMain.PerformLayout();
 			this.splMain.Panel1.ResumeLayout(false);
@@ -208,6 +235,9 @@ private Label			lblLessonTitle;
 private Label			lblLessonComment;
 private Button			btnStartLesson;
 private ToolStripMenuItem	administrationToolStripMenuItem;
+private ToolStripSeparator	toolStripSeparator1;
+private ToolStripMenuItem	quitterToolStripMenuItem;
+private ToolStripMenuItem	usernameToolStripMenuItem;
 private MenuStrip		mnuMain;
 #endregion
 #region Champs
@@ -222,6 +252,8 @@ frmDashboard(UtilisateursRow user)
 	InitializeComponent();
 	FillTreeView(treeView1);
 	administrationToolStripMenuItem.Enabled = (((user.codeUtil & 4) >> 2) & (((user.codeUtil & 2) >> 1) ^ (user.codeUtil & 1))) == 1;
+	usernameToolStripMenuItem.Enabled = false;
+	usernameToolStripMenuItem.Text = user.pnUtil + " " + user.nomUtil;
 }
 #endregion
 #region Méthodes
@@ -354,12 +386,26 @@ UpdateUserProgress(UtilisateursRow user)
 private void
 administrationToolStripMenuItem_Click(object sender, EventArgs e)
 {
-	Enabled = false;
-	Opacity = 0.65;
-	using (frmAdmin modal = new frmAdmin())
-		modal.ShowDialog();
-	Opacity = 1;
-	Enabled = true;
+	UseWaitCursor = true;
+	new frmAdmin().Show();
+	UseWaitCursor = false;
+}
+
+private void
+déconnecterToolStripMenuItem_Click(object sender, EventArgs e)
+{
+	Close();
+}
+
+private void
+quitterToolStripMenuItem_Click(object sender, EventArgs e)
+{
+	Application.Exit();
+}
+
+private void frmDashboard_FormClosing(object sender, FormClosingEventArgs e)
+{
+	Application.Exit();
 }
 }
 

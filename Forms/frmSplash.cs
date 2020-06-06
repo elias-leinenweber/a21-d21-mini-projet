@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 
+using TorreDeBabel.Properties;
+
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
@@ -24,11 +26,12 @@ InitializeComponent()
 	components = new System.ComponentModel.Container();
 
 	Name			= "frmDemarrage";
-	Text			= Application.ProductName;
-	BackgroundImage		= Properties.Resources.TowerOfBabel;
+	Text			= "Torre de Babel";
+	BackgroundImage		= Resources.TowerOfBabel;
 	ClientSize		= BackgroundImage.Size;
-	Font			= Properties.Settings.Default.DisplayFont;
+	Font			= Settings.Default.DisplayFont;
 	FormBorderStyle		= FormBorderStyle.FixedSingle;
+	Icon			= Resources.babel;
 	MaximizeBox		= false;
 	StartPosition		= FormStartPosition.CenterScreen;
 

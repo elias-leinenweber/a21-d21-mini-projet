@@ -34,87 +34,84 @@ private void InitializeComponent()
 	components = new System.ComponentModel.Container();
 
 	Name		= "frmAdmin";
+	Text		= "Administration";
 	BackColor	= Color.White;
-	ClientSize	= new Size(600, 600);
+	ClientSize	= new Size(1080, 690);
 	Font		= Properties.Settings.Default.DisplayFont;
 	FormBorderStyle	= FormBorderStyle.FixedSingle;
 	MaximizeBox	= false;
 	MinimizeBox	= false;
 	ShowIcon	= false;
-	ShowInTaskbar	= false;
 	SizeGripStyle	= SizeGripStyle.Hide;
-	StartPosition	= FormStartPosition.CenterParent;
-
-	tlpMain	= new TableLayoutPanel() {
-		Name		= "tlpMain",
-		ColumnCount	= 1,
-		RowCount	= 7,
-		Dock		= DockStyle.Fill
-	};
-	tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-	for (int i = 0; i < tlpMain.RowCount; ++i)
-		tlpMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+	StartPosition	= FormStartPosition.CenterScreen;
 
 	lblTitle = new Label() {
 		Name		= "lblTitle",
 		Text		= "Administration",
-		AutoSize	= true,
+		Location	= new Point(40, 30),
+		Size		= new Size(ClientSize.Width - 2 * 40, 40),
 		Font		= new Font(Font.FontFamily, 26, FontStyle.Bold, GraphicsUnit.Pixel)
 	};
-	tlpMain.Controls.Add(lblTitle, 0, 0);
+	Controls.Add(lblTitle);
 
 	lblCourse = new Label() {
 		Name		= "lblCourse",
 		Text		= "Cours",
-		AutoSize	= true,
+		Location	= new Point(lblTitle.Left, lblTitle.Top + lblTitle.Height + 20),
+		Size		= new Size(lblTitle.Width / 2 - 10, 20),
 		Font		= new Font(Font.FontFamily, 16, GraphicsUnit.Pixel)
 	};
-	tlpMain.Controls.Add(lblCourse, 0, 1);
+	Controls.Add(lblCourse);
 	cboCourse = new ComboBox() {
 		Name		= "cboCourse",
 		DropDownStyle	= ComboBoxStyle.DropDownList,
+		Location	= new Point(lblCourse.Left, lblCourse.Top + lblCourse.Height + 10),
+		Size		= new Size(lblCourse.Width, 64),
 		Font		= new Font(Font.FontFamily, 16, GraphicsUnit.Pixel)
 	};
 	cboCourse.SelectedValueChanged += new EventHandler(UpdateLessons);
 	cboCourse.SelectedValueChanged += new EventHandler(UpdateExercises);
-	tlpMain.Controls.Add(cboCourse, 0, 2);
+	Controls.Add(cboCourse);
 
 	lblLesson = new Label() {
 		Name		= "lblLesson",
 		Text		= "Leçon",
-		AutoSize	= true,
+		Location	= new Point(lblCourse.Left + lblCourse.Width + 20, lblCourse.Top),
+		Size		= new Size(lblCourse.Width, 20),
 		Font		= new Font(Font.FontFamily, 16, GraphicsUnit.Pixel)
 	};
-	tlpMain.Controls.Add(lblLesson, 0, 3);
+	Controls.Add(lblLesson);
 	cboLesson = new ComboBox() {
 		Name		= "cboLesson",
 		DropDownStyle	= ComboBoxStyle.DropDownList,
+		Location	= new Point(cboCourse.Left + cboCourse.Width + 20, cboCourse.Top),
+		Size		= new Size(cboCourse.Width, 64),
 		Font		= new Font(Font.FontFamily, 16, GraphicsUnit.Pixel)
 	};
 	cboLesson.SelectedValueChanged += new EventHandler(UpdateExercises);
-	tlpMain.Controls.Add(cboLesson, 0, 4);
+	Controls.Add(cboLesson);
 
 	lblExercises = new Label() {
 		Name		= "lblExercises",
 		Text		= "Exercices",
-		AutoSize	= true,
+		Location	= new Point(cboCourse.Left, cboCourse.Top + cboCourse.Height + 20),
+		Size		= new Size(lblTitle.Width, 20),
 		Font		= new Font(Font.FontFamily, 16, GraphicsUnit.Pixel)
 	};
-	tlpMain.Controls.Add(lblExercises, 0, 5);
+	Controls.Add(lblExercises);
 	dgvExercises = new DataGridView() {
 		Name			= "dvgExercises",
-		Dock			= DockStyle.Fill,
 		AutoSizeColumnsMode	= DataGridViewAutoSizeColumnsMode.AllCells,
 		AutoSizeRowsMode	= DataGridViewAutoSizeRowsMode.AllCells,
+		Location		= new Point(lblExercises.Left, lblExercises.Top + lblExercises.Height + 10),
+		Width			= lblExercises.Width,
 		ReadOnly		= true
 	};
+	dgvExercises.Height = ClientSize.Height - dgvExercises.Top - 20;
 	dgvExercises.DataError += new DataGridViewDataErrorEventHandler(IgnoreDataError);
-	tlpMain.Controls.Add(dgvExercises, 0, 6);
-
-	Controls.Add(tlpMain);
+	Controls.Add(dgvExercises);
 }
 
-private TableLayoutPanel	tlpMain;
 private Label			lblTitle;
 private Label			lblCourse;
 private ComboBox		cboCourse;
