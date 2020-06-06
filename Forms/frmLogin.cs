@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -23,6 +26,7 @@ InitializeComponent()
 {
 	components = new System.ComponentModel.Container();
 
+	Name		= "frmLogin";
 	BackColor	= Color.White;
 	ClientSize	= new Size(600, 238);
 	Font		= Properties.Settings.Default.DisplayFont;
@@ -101,9 +105,23 @@ frmLogin()
 private void
 FillCboUsers()
 {
-	cboUsers.DataSource	= tblUsers;
-	cboUsers.DisplayMember	= "ncUtil";
-	cboUsers.ValueMember	= "codeUtil";
+	FillComboBox(cboUsers, tblUsers, "ncUtil", "codeUtil");
+}
+
+public static void
+FillComboBox(ComboBox cbo, DataTable tbl, string displayMember, string valueMember)
+{
+	cbo.DataSource		= tbl;
+	cbo.DisplayMember	= displayMember;
+	cbo.ValueMember		= valueMember;
+}
+
+public static void
+FillComboBox(ComboBox cbo, DataRow[] rows, string displayMember, string valueMember)
+{
+	cbo.DataSource		= rows;
+	cbo.DisplayMember	= displayMember;
+	cbo.ValueMember		= valueMember;
 }
 
 private void

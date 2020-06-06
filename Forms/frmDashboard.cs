@@ -6,6 +6,8 @@ using System.Linq;
 using System.Windows.Forms;
  
 using TorreDeBabel.baseLangueDataSetTableAdapters;
+using TorreDeBabel.Forms;
+
 using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
@@ -22,6 +24,7 @@ private System.ComponentModel.IContainer components = null;
 		private Label lblLessonTitle;
 		private Label lblLessonComment;
 		private Button btnStartLesson;
+		private ToolStripMenuItem administrationToolStripMenuItem;
 		private MenuStrip mnuMain;
 
 
@@ -37,7 +40,6 @@ Dispose(bool disposing)
 private void
 InitializeComponent()
 {
-	StartPosition	= FormStartPosition.CenterScreen;
 			this.mnuMain = new System.Windows.Forms.MenuStrip();
 			this.mniUser = new System.Windows.Forms.ToolStripMenuItem();
 			this.déconnecterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,6 +51,7 @@ InitializeComponent()
 			this.lblLessonTitle = new System.Windows.Forms.Label();
 			this.lblLessonComment = new System.Windows.Forms.Label();
 			this.btnStartLesson = new System.Windows.Forms.Button();
+			this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mnuMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splMain)).BeginInit();
 			this.splMain.Panel1.SuspendLayout();
@@ -69,7 +72,8 @@ InitializeComponent()
 			// mniUser
 			// 
 			this.mniUser.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.déconnecterToolStripMenuItem});
+            this.déconnecterToolStripMenuItem,
+            this.administrationToolStripMenuItem});
 			this.mniUser.Name = "mniUser";
 			this.mniUser.Size = new System.Drawing.Size(72, 20);
 			this.mniUser.Text = "Utilisateur";
@@ -77,7 +81,7 @@ InitializeComponent()
 			// déconnecterToolStripMenuItem
 			// 
 			this.déconnecterToolStripMenuItem.Name = "déconnecterToolStripMenuItem";
-			this.déconnecterToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+			this.déconnecterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.déconnecterToolStripMenuItem.Text = "Déconnecter";
 			// 
 			// splMain
@@ -133,7 +137,7 @@ InitializeComponent()
 			this.lblCourseTitle.AutoSize = true;
 			this.lblCourseTitle.Location = new System.Drawing.Point(3, 0);
 			this.lblCourseTitle.Name = "lblCourseTitle";
-			this.lblCourseTitle.Size = new System.Drawing.Size(35, 13);
+			this.lblCourseTitle.Size = new System.Drawing.Size(52, 21);
 			this.lblCourseTitle.TabIndex = 0;
 			this.lblCourseTitle.Text = "label1";
 			// 
@@ -142,7 +146,7 @@ InitializeComponent()
 			this.lblCourseComment.AutoSize = true;
 			this.lblCourseComment.Location = new System.Drawing.Point(3, 77);
 			this.lblCourseComment.Name = "lblCourseComment";
-			this.lblCourseComment.Size = new System.Drawing.Size(35, 13);
+			this.lblCourseComment.Size = new System.Drawing.Size(52, 21);
 			this.lblCourseComment.TabIndex = 1;
 			this.lblCourseComment.Text = "label1";
 			// 
@@ -151,7 +155,7 @@ InitializeComponent()
 			this.lblLessonTitle.AutoSize = true;
 			this.lblLessonTitle.Location = new System.Drawing.Point(3, 154);
 			this.lblLessonTitle.Name = "lblLessonTitle";
-			this.lblLessonTitle.Size = new System.Drawing.Size(35, 13);
+			this.lblLessonTitle.Size = new System.Drawing.Size(52, 21);
 			this.lblLessonTitle.TabIndex = 2;
 			this.lblLessonTitle.Text = "label1";
 			// 
@@ -160,7 +164,7 @@ InitializeComponent()
 			this.lblLessonComment.AutoSize = true;
 			this.lblLessonComment.Location = new System.Drawing.Point(3, 231);
 			this.lblLessonComment.Name = "lblLessonComment";
-			this.lblLessonComment.Size = new System.Drawing.Size(35, 13);
+			this.lblLessonComment.Size = new System.Drawing.Size(52, 21);
 			this.lblLessonComment.TabIndex = 3;
 			this.lblLessonComment.Text = "label1";
 			// 
@@ -169,20 +173,28 @@ InitializeComponent()
 			this.btnStartLesson.AutoSize = true;
 			this.btnStartLesson.Location = new System.Drawing.Point(3, 311);
 			this.btnStartLesson.Name = "btnStartLesson";
-			this.btnStartLesson.Size = new System.Drawing.Size(113, 23);
+			this.btnStartLesson.Size = new System.Drawing.Size(162, 31);
 			this.btnStartLesson.TabIndex = 4;
 			this.btnStartLesson.Text = "Commencer la lecon";
 			this.btnStartLesson.UseVisualStyleBackColor = true;
 			this.btnStartLesson.Click += new System.EventHandler(this.StartLesson);
 			// 
+			// administrationToolStripMenuItem
+			// 
+			this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
+			this.administrationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.administrationToolStripMenuItem.Text = "Administration";
+			this.administrationToolStripMenuItem.Click += new System.EventHandler(this.administrationToolStripMenuItem_Click);
+			// 
 			// frmDashboard
 			// 
-			this.Font = Properties.Settings.Default.DisplayFont;
 			this.ClientSize = new System.Drawing.Size(784, 411);
 			this.Controls.Add(this.splMain);
 			this.Controls.Add(this.mnuMain);
+			this.Font = global::TorreDeBabel.Properties.Settings.Default.DisplayFont;
 			this.MainMenuStrip = this.mnuMain;
 			this.Name = "frmDashboard";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.mnuMain.ResumeLayout(false);
 			this.mnuMain.PerformLayout();
 			this.splMain.Panel1.ResumeLayout(false);
@@ -320,6 +332,17 @@ UpdateUserProgress(UtilisateursRow user)
 	}
 }
 #endregion
+
+private void
+administrationToolStripMenuItem_Click(object sender, EventArgs e)
+{
+	Enabled = false;
+	Opacity = 0.65;
+	using (frmAdmin modal = new frmAdmin())
+		modal.ShowDialog();
+	Opacity = 1;
+	Enabled = true;
+}
 }
 
 class DataNode : TreeNode {
