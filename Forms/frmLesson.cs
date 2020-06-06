@@ -37,16 +37,13 @@ InitializeComponent()
 	Icon		= Resources.babel;
 	StartPosition	= FormStartPosition.CenterScreen;
 
-	btnReturn = new Button() {
+	btnReturn = new PictureBox() {
 		Name		= "btnReturn",
 		Location	= new Point(40, 50),
 		Size		= new Size(18, 18),
-		Font		= new Font("Webdings", 10),
-		Text		= "r",
-		ForeColor	= Color.FromArgb(186, 186, 186),
-		FlatStyle	= FlatStyle.Flat
+		Image		= Resources.x,
+		Cursor		= Cursors.Hand
 	};
-	btnReturn.FlatAppearance.BorderSize = 0;
 	btnReturn.Click += new EventHandler(Return);
 
 	pgb = new ProgressBar() {
@@ -100,10 +97,18 @@ InitializeComponent()
 	btnContinue.Click += new EventHandler(Continue);
 	pnlFooter.Controls.Add(btnContinue);
 
+	pcbStatusIcon = new PictureBox() {
+		Name		= "pcbStatusIcon",
+		Location	= new Point(40, 16),
+		Size		= new Size(80, 80),
+		Visible		= false
+	};
+	pnlFooter.Controls.Add(pcbStatusIcon);
+
 	lblSolutionHeader = new Label() {
 		Name		= "lblSolutionHeader",
-		Text		= "Solution correcte :",
-		Location	= new Point(96, 16),
+		Text		= "Solution :",
+		Location	= new Point(136, 16),
 		AutoSize	= true,
 		Font		= new Font(Font.FontFamily, 24, FontStyle.Bold, GraphicsUnit.Pixel),
 		ForeColor	= Color.FromArgb(234, 43, 43),
@@ -116,6 +121,7 @@ InitializeComponent()
 		Top		= lblSolutionHeader.Top + lblSolutionHeader.Height,
 		Left		= lblSolutionHeader.Left,
 		AutoSize	= true,
+		MaximumSize	= new Size(640, 0),
 		Font		= new Font(Font.FontFamily, 17, GraphicsUnit.Pixel),
 		ForeColor	= Color.FromArgb(234, 43, 43),
 		Visible		= false
@@ -129,13 +135,14 @@ InitializeComponent()
 	ResumeLayout(false);
 }
 
-private Button		btnReturn;
+private PictureBox	btnReturn;
 private ProgressBar	pgb;
 private Exercise	exo;
 private Panel		pnlFooter;
 private Button		btnSkip;
 private Button		btnCheck;
 private Button		btnContinue;
+private PictureBox	pcbStatusIcon;
 private Label		lblSolutionHeader;
 private Label		lblSolutionContent;
 #endregion
@@ -183,9 +190,19 @@ LoadExercise()
 {
 	if (Exercises.Count > 0) {
 		exo = Exercise.GetExercise(Exercises.Dequeue());
+		if (exo == null) {
+			NextExercise();
+			return;
+		}// exo conjugaison; non implémenté
 		exo.Location = new Point((Width - exo.Width) / 2, 100);
 		exo.OnUserInput += new Exercise.UserInputHandler(UserInput);
-		btnSkip.Enabled = !(exo is exoVocab);
+		if (exo is exoVocab) {
+			btnSkip.Enabled = false;
+			btnSkip.BackColor = Color.Transparent;
+		} else {
+			btnSkip.Enabled = true;
+			btnSkip.BackColor = Color.White;
+		}
 		Controls.Add(exo);
 	} else
 		Recap();
@@ -233,6 +250,8 @@ ValidateExercise()
 	exo.Freeze();
 	btnSkip.Visible = false;
 	btnContinue.Visible = true;
+	pcbStatusIcon.Visible = true;
+	lblSolutionHeader.Visible = true;
 	btnContinue.BringToFront();
 }
 
@@ -256,6 +275,7 @@ Continue(object sender, EventArgs e)
 
 	btnSkip.Visible			= true;
 	btnContinue.Visible		= false;
+	pcbStatusIcon.Visible		= false;
 	lblSolutionHeader.Visible	= false;
 	lblSolutionContent.Visible	= false;
 
@@ -277,6 +297,9 @@ Success()
 
 	pnlFooter.BackColor = CorrectBack;
 	btnContinue.BackColor = pnlFooter.ForeColor = CorrectFore;
+	lblSolutionHeader.Text = "Correct";
+	lblSolutionHeader.ForeColor = CorrectFore;
+	pcbStatusIcon.Image = Resources.yes;
 }
 
 private void
@@ -289,7 +312,9 @@ Fail()
 	pnlFooter.BackColor = ErrorBack;
 	btnContinue.BackColor = pnlFooter.ForeColor = ErrorFore;
 
-	lblSolutionHeader.Visible = true;
+	pcbStatusIcon.Image = Resources.no;
+	lblSolutionHeader.ForeColor = ErrorFore;
+	lblSolutionHeader.Text = "Solution : ";
 	if (exo is exoSentence sentence)
 		lblSolutionContent.Text = sentence.Solution;
 	lblSolutionContent.Visible = true;

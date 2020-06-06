@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 using static TorreDeBabel.baseLangueDataSet;
 
@@ -76,8 +75,7 @@ Normalize(string input)
 	    .ToLowerInvariant()
 	    .Normalize(System.Text.NormalizationForm.FormD)
 	    .ToCharArray()
-	    .Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
-	    // TODO Supprimer ponctuation
+	    .Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark && !char.IsPunctuation(c))
 	    .ToArray()
 	);
 }

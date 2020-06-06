@@ -34,6 +34,7 @@ CreateChallenge(string sentence)
 	Label lblWord;
 
 	words = sentence.Split(' ').OrderBy(word => rnd.Next()).ToArray();
+	// TODO bonus : rajouter plein de mots random pour augmenter difficulté
 	foreach (string word in words) {
 		lblWord = new Label() {
 			Name		= "lbl" + word, //toCamelCase

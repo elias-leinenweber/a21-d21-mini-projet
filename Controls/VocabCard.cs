@@ -6,6 +6,7 @@ using static TorreDeBabel.baseLangueDataSet;
 
 namespace TorreDeBabel {
 class VocabCard  : TableLayoutPanel {
+#region Designer
 private System.ComponentModel.IContainer components = null;
 
 protected override void
@@ -50,6 +51,7 @@ InitializeComponent()
 
 	lblRegion = new Label() {
 		Name		= "lblRegion",
+		ForeColor	= Color.FromArgb(175, 175, 175),
 		AutoSize	= true
 	};
 	Controls.Add(lblRegion, 0, 2);
@@ -70,7 +72,7 @@ private RowStyle	rowCaption;
 private Label		lblCaption;
 private RowStyle	rowRegion;
 private Label		lblRegion;
-
+#endregion
 internal
 VocabCard(MotsRow word)
 {
@@ -81,9 +83,9 @@ VocabCard(MotsRow word)
 		pcbImage.Image = (Bitmap)Properties.Resources.ResourceManager
 		    .GetObject(word.cheminPhoto.Remove(word.cheminPhoto.IndexOf('.')));
 
-	lblCaption.Text = word.libMot + " (" + word.origine + ")";
+	lblCaption.Text = word.libMot/* + " (" + word.origine + ")"*/;
 	lblCaption.Tag = word.traducMot;
-	//lblRegion.Text = word.origine;
+	lblRegion.Text = word.origine;
 }
 
 private void

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
-
-using TorreDeBabel.baseLangueDataSetTableAdapters;
 
 using static TorreDeBabel.baseLangueDataSet;
 
@@ -53,6 +50,7 @@ InitializeComponent()
 
 	lblSentence = new Label() {
 		Name		= "lblSentence",
+		Font		= new Font(Font, FontStyle.Italic),
 		AutoSize	= true,
 	};
 	lblSentence.Margin = new Padding(lblSentence.Margin.Left,
@@ -104,8 +102,10 @@ GetExercise(ExercicesRow data)
 		res = new exoVocab(data);
 	else if (data.completeON)
 		res = new exoPhraseDesordre(data);
-	else
+	else if (!data.IslisteMotsNull())
 		res = new exoMissingWords(data);
+	else
+		res = null;	//TODO exo conjugaison ?
 	return res;
 }
 

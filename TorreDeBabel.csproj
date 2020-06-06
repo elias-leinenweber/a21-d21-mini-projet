@@ -81,12 +81,6 @@
     <Compile Include="Controls\exoMissingWords.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\ProgressTree.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\ProgressTree.Designer.cs">
-      <DependentUpon>ProgressTree.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\VocabCard.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -145,6 +139,10 @@
     <Content Include="Data\baseLangue.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\x.png" />
+    <None Include="Resources\yes.png" />
+    <None Include="Resources\no.png" />
+    <None Include="Resources\rarrow.png" />
     <None Include="Resources\partial.png" />
     <None Include="Resources\empty.png" />
     <None Include="Resources\checked.png" />

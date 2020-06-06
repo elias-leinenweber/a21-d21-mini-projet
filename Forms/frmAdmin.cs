@@ -107,7 +107,7 @@ private void InitializeComponent()
 		Width			= lblExercises.Width,
 		ReadOnly		= true
 	};
-	dgvExercises.Height = ClientSize.Height - dgvExercises.Top - 20;
+	dgvExercises.Height = ClientSize.Height - dgvExercises.Top - 30;
 	dgvExercises.DataError += new DataGridViewDataErrorEventHandler(IgnoreDataError);
 	Controls.Add(dgvExercises);
 }
