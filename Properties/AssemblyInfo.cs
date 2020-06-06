@@ -1,16 +1,17 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TorreDeBabel")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Torre de Babel")]
+[assembly: AssemblyDescription("Une application proposant une initiation à la langue espagnole au travers d’une série d’exercices, articulés autour de trois formules : des fiches « vocabulaire » ; des phrases à trous à compléter ; des phrases dans le désordre, à reconstituer.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TorreDeBabel")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCompany("Elias Leinenweber")]
+[assembly: AssemblyProduct("Torre de Babel")]
+[assembly: AssemblyCopyright("Copyleft")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,3 +35,4 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguage("fr-FR")]

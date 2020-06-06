@@ -33,7 +33,7 @@ InitializeComponent()
 	BackColor	= Color.White;
 	ForeColor	= Color.FromArgb(60, 60, 60);
 	ControlBox	= false;
-	FormBorderStyle	= FormBorderStyle.None;
+	FormBorderStyle	= FormBorderStyle.FixedSingle;
 	Icon		= Resources.babel;
 	StartPosition	= FormStartPosition.CenterScreen;
 

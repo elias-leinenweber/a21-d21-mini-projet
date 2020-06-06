@@ -1,4 +1,6 @@
 /.vs/
 /bin/
 /obj/
+/publish/
 *.csproj.user
+app.manifest
