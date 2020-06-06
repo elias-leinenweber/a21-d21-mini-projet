@@ -147,7 +147,7 @@ private static Color	ErrorBack	= Color.FromArgb(255, 193, 193);
 private static Color	ErrorFore	= Color.FromArgb(234, 43, 43);
 
 private Queue<ExercicesRow>	Exercises;
-private uint			Mistakes;
+private Dictionary<int, string>	Mistakes;
 #endregion
 #region Constructeurs
 public
@@ -170,7 +170,7 @@ frmLesson(LeconsRow lesson)
 		pgb.Step = 100 / Exercises.Count;
 		LoadExercise();
 	}
-	Mistakes = 0;
+	Mistakes = new Dictionary<int, string>();
 }
 #endregion
 #region Méthodes
@@ -181,6 +181,7 @@ LoadExercise()
 		exo = Exercise.GetExercise(Exercises.Dequeue());
 		exo.Location = new Point((Width - exo.Width) / 2, 100);
 		exo.OnUserInput += new Exercise.UserInputHandler(UserInput);
+		btnSkip.Enabled = !(exo is exoVocab);
 		Controls.Add(exo);
 	} else
 		Recap();
@@ -284,7 +285,7 @@ Success()
 private void
 Fail()
 {
-	++Mistakes;
+	Mistakes.Add(exo.data.numExo, exo.data.enonceExo); // TODO user input
 	Exercises.Enqueue(exo.data);
 
 	pnlFooter.BackColor = ErrorBack;
@@ -299,7 +300,10 @@ Fail()
 private void
 Recap()
 {
-	MessageBox.Show("Récapitulatif : " + Mistakes + " fautes.");
+	string message = "Récapitulatif : " + Mistakes.Count + " fautes :\n";
+	foreach (KeyValuePair<int, string> mistake in Mistakes)
+		message += string.Format("Exercice {0} : {1}\n", mistake.Key, mistake.Value);
+	MessageBox.Show(message);
 	DialogResult = DialogResult.OK;
 	Close();
 }

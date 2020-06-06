@@ -300,8 +300,8 @@ UpdateUserProgress(UtilisateursRow user)
 
 		try {
 			command.CommandText =
-			    "UPDATE Utilisateurs" +
-			    "SET [codeExo] = @exercise, [codeLeçon] = @lesson, [codeCours] = @course" +
+			    "UPDATE Utilisateurs\n" +
+			    "SET [codeExo] = @exercise, [codeLeçon] = @lesson, [codeCours] = @course\n" +
 			    "WHERE [codeUtil] = @id";
 			command.Parameters.AddWithValue("@exercise", user.codeExo);
 			command.Parameters.AddWithValue("@lesson", user.codeLeçon);

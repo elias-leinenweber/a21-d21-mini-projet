@@ -54,6 +54,13 @@ InitializeComponent()
 	};
 	Controls.Add(lblRegion, 0, 2);
 
+	MouseHover += new EventHandler(ToggleTranslation);
+	MouseLeave += new EventHandler(ToggleTranslation);
+	foreach (Control control in Controls) {
+		control.MouseHover += new EventHandler(ToggleTranslation);
+		control.MouseLeave += new EventHandler(ToggleTranslation);
+	}
+
 	ResumeLayout(false);
 }
 
@@ -75,7 +82,16 @@ VocabCard(MotsRow word)
 		    .GetObject(word.cheminPhoto.Remove(word.cheminPhoto.IndexOf('.')));
 
 	lblCaption.Text = word.libMot + " (" + word.origine + ")";
+	lblCaption.Tag = word.traducMot;
 	//lblRegion.Text = word.origine;
+}
+
+private void
+ToggleTranslation(object sender, EventArgs e)
+{
+	string tmp = lblCaption.Text;
+	lblCaption.Text = (string)lblCaption.Tag;
+	lblCaption.Tag = tmp;
 }
 }
 }
